@@ -6,7 +6,7 @@ Until I figure out how to do remote development with vscode, here is the followi
 2. Edit files on vscode or any other visually pleasing interface
 3. Push/pull to run repo on lab machine
 
-Below are the steps derived from the solution recording, but watching it yourself is useful.
+Below are my personal notes, watch the solution recording first.
 
 ### Importing Files
 
