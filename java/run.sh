@@ -1,7 +1,9 @@
-#! /bin/bash
-DBNAME=$1
-PORT=$2
-USER=$3
+#!/bin/bash
+root=$(realpath $(dirname "$0"))
+root=$(dirname $root)
+dbname=$(logname)_db
 
-# Example: source ./run.sh flightDB 5432 user
-java -cp lib/*:bin/ Ticketmaster $DBNAME $PORT $USER
+cd $root/java
+
+# Example: ./run.sh
+java -cp lib/*:bin/ Ticketmaster $dbname $PGPORT $(logname)

@@ -17,9 +17,7 @@ CREATE TABLE Cities (
     city_name VARCHAR(64) NOT NULL,
     city_state CHAR(2) NOT NULL,
     zip_code NUMERIC(5) NOT NULL,
-    PRIMARY KEY(city_id),
-    UNIQUE(city_state, city_name),
-    UNIQUE(zip_code)
+    PRIMARY KEY(city_id)
 );
 
 CREATE TABLE Cinemas (
@@ -28,8 +26,7 @@ CREATE TABLE Cinemas (
     cname VARCHAR(64) NOT NULL,  -- Cinema name
     tnum INTEGER NOT NULL,  -- Number of theaters
     PRIMARY KEY(cid),
-    FOREIGN KEY(city_id) REFERENCES Cities(city_id),
-    UNIQUE(city_id, cname)
+    FOREIGN KEY(city_id) REFERENCES Cities(city_id)
 );
 
 CREATE TABLE Theaters (
@@ -38,8 +35,7 @@ CREATE TABLE Theaters (
     tname VARCHAR(64) NOT NULL,  -- Theater name
     tseats BIGINT NOT NULL,  -- Number of seats in the theater
     PRIMARY KEY(tid),
-    FOREIGN KEY(cid) REFERENCES Cinemas(cid),
-    UNIQUE(cid, tname)
+    FOREIGN KEY(cid) REFERENCES Cinemas(cid)
 );
 
 CREATE TABLE CinemaSeats (
@@ -48,8 +44,7 @@ CREATE TABLE CinemaSeats (
     sno INTEGER NOT NULL,  -- Seat number in the theater
     stype VARCHAR(16) NOT NULL,  -- Seat type
     PRIMARY KEY(csid),
-    FOREIGN KEY(tid) REFERENCES Theaters(tid),
-    UNIQUE(tid, sno)
+    FOREIGN KEY(tid) REFERENCES Theaters(tid)
 );
 
 CREATE TABLE Movies (
@@ -68,11 +63,8 @@ CREATE TABLE Users (
     email VARCHAR(64) NOT NULL,
     lname VARCHAR(32) NOT NULL,  -- Last name
     fname VARCHAR(32) NOT NULL,  -- First name
-    phone INTEGER,  -- Or some string format, e.g. +1 (123) 456-789. Numer type cannot save + sign for country code.
-    -- Or use the following 2 attributes, area code + phone number, then both can be number type
-    -- area INTEGER,
-    -- phone INTEGER,
-    pwd TEXT NOT NULL,  -- Password (should be hash instead of plain text)
+    phone NUMERIC(10, 0),
+    pwd CHAR(64) NOT NULL,  -- SHA256 hash of password
     PRIMARY KEY(email)
 );
 
@@ -133,4 +125,117 @@ CREATE TABLE Plays (
     PRIMARY KEY(sid, tid),
     FOREIGN KEY(sid) REFERENCES Shows(sid),
     FOREIGN KEY(tid) REFERENCES Theaters(tid)
+);
+
+
+----------------------------
+-- INSERT DATA STATEMENTS --
+----------------------------
+
+COPY Cities (
+	city_id,
+	city_name,
+	city_state,
+	zip_code
 )
+FROM 'Cities.csv'
+WITH DELIMITER ',';
+
+COPY Cinemas (
+	cid,
+	city_id,
+	cname,
+	tnum
+)
+FROM 'Cinemas.csv'
+WITH DELIMITER ',';
+
+COPY Theaters (
+	tid,
+	cid,
+	tname,
+	tseats
+)
+FROM 'Theaters.csv'
+WITH DELIMITER ',';
+
+COPY CinemaSeats (
+	csid,
+	tid,
+	sno,
+	stype
+)
+FROM 'CinemaSeats.csv'
+WITH DELIMITER ',';
+
+COPY Movies  (
+	mvid,
+	title,
+	rdate,
+	country,
+	description,
+	duration,
+	lang,
+	genre
+)
+FROM 'Movies.csv'
+WITH DELIMITER ',';
+
+COPY Users (
+	email,
+	lname,
+	fname,
+	phone,
+	pwd 
+)
+FROM 'Users.csv'
+WITH DELIMITER ',';
+
+COPY Shows (
+	sid,
+	mvid,
+	sdate,
+	sttime,
+	edtime
+)
+FROM 'Shows.csv'
+WITH DELIMITER ',';
+
+COPY Bookings (
+    bid,
+    status,
+    bdatetime,
+    seats,
+    sid,
+    email
+)
+FROM 'Bookings.csv'
+WITH DELIMITER ',';
+
+COPY Payments (
+    pid,
+    bid,
+    pmethod,
+    pdatetime,
+    amount,
+    trid
+)
+FROM 'Payments.csv'
+WITH DELIMITER ',';
+
+COPY ShowSeats (
+    ssid,
+    sid,
+    csid,
+    bid,
+    price
+)
+FROM 'ShowSeats.csv'
+WITH DELIMITER ',' NULL AS '';
+
+COPY Plays (
+    sid,
+    tid
+)
+FROM 'Plays.csv'
+WITH DELIMITER ',';

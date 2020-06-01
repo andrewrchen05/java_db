@@ -1,12 +1,22 @@
-#! /bin/bash
-DBNAME=$1
+#!/bin/bash
+folder=/tmp/$(logname)/mydb
+PGDATA=$folder/data
+PGSOCKETS=$folder/sockets
+export PGDATA
+export PGSOCKETS
 
-echo "Checking server status"
+root=$(realpath $(dirname "$0"))
+echo $root
+root=$(dirname $root)
+echo $root
+dbname=$(logname)_db
+echo "creating db named ... $dbname"
+createdb -h localhost $dbname
 pg_ctl status
 
 echo "Copying csv files ... "
-cp ../data/*.csv /tmp/$USER/test/data/.
+sleep 1
+cp $root/data/*.csv /tmp/$(logname)/mydb/data/
 
 echo "Initializing tables .. "
-sleep 1
-psql -h /tmp/$LOGNAME/sockets $DBNAME < ../sql/create.sql
+psql -h localhost $dbname < $root/sql/create.sql
