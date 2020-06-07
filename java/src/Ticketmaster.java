@@ -322,7 +322,7 @@ public class Ticketmaster{
 		String email;
 		String lname;
 		String fname;
-		int phone;
+		long phone;
 		String pwd;
 
 		do{
