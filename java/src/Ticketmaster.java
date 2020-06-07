@@ -311,25 +311,26 @@ public class Ticketmaster{
 			}//end try
 		}while (true);
 		return input;
-	}//end readChoice
+	}
+	// end readChoice
 	
 	//Ticketmaster esql is a java object
 
-	// public static void AddUser(Ticketmaster esql){//1
-	// 	// insert tuple into database
-	// 	try {
-	// 		do {
+	public static void AddUser(Ticketmaster esql){//1
+		// insert tuple into database
+		try {
+			do {
 				
 			
-	// 		} while (true) {
+			} while (true) {
 
-	// 		}
+			}
 		
 		
-	// 	} catch (Exception e) {
+		} catch (Exception e) {
 
-	// 	} 
-	// }
+		} 
+	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
 		
