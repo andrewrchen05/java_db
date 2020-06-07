@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class defines a simple embedded SQL utility class that is designed to
@@ -312,8 +313,22 @@ public class Ticketmaster{
 		return input;
 	}//end readChoice
 	
+	//Ticketmaster esql is a java object
+
 	public static void AddUser(Ticketmaster esql){//1
+		// insert tuple into database
+		try {
+			do {
+				
+			
+			} while (true) {
+
+			}
 		
+		
+		} catch (Exception e) {
+
+		} 
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
