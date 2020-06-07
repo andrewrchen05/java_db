@@ -318,6 +318,7 @@ public class Ticketmaster{
 
 	public static void AddUser(Ticketmaster esql){//1
 		// insert tuple into database
+<<<<<<< HEAD
 		try {
 			do {
 				
@@ -330,6 +331,104 @@ public class Ticketmaster{
 		} catch (Exception e) {
 
 		} 
+=======
+		
+		//gather data
+		String email;
+		String lname;
+		String fname;
+		long phone;
+		String pwd;
+
+		do{
+			System.out.println("Email: ");
+			try {
+				email = in.readLine();
+				if(email.length() > 64 || email.length() <= 0)  {
+					throw new ArithmeticException("Email cannot be empty and has  to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Last name: ");
+			try {
+				lname = in.readLine();
+				if(lname.length() > 32 || lname.length() <= 0)  {
+					throw new ArithmeticException("Last name cannot be empty and has  to be less than 32 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("First name: ");
+			try {
+				fname = in.readLine();
+				if(fname.length() > 32 || fname.length() <= 0)  {
+					throw new ArithmeticException("First name cannot be empty and has to be less than 32 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Phone number: ");
+			try {
+				phone = Integer.parseInt(in.readLine());
+				if(phone > 9999999999 || phone < 0) {
+					throw new ArithmeticException("Phone number cannot be empty and has to be less than 10 digits");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Password: ");
+			try {
+				pwd = in.readLine();
+				if(pwd.length() > 64 || pwd.length() <= 0) {
+					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		//insert into table
+		try {
+			String query = "INSERT INTO Users (email, lname, fname, phone, pwd) VALUES (" + email + ", '" + lname + "', '" + fname + ", '" + phone + ", '" + pwd + ");";
+			esql.executeUpdate(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+>>>>>>> 0f6aae7dabb83df4b5ba769942d7fb9d4d096725
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
