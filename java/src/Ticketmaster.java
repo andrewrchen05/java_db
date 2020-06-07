@@ -312,6 +312,7 @@ public class Ticketmaster{
 		return input;
 	}//end readChoice
 	
+	//adding user, movie, or city do not require other tables to have data
 	public static void AddUser(Ticketmaster esql){//1
 		
 	}
