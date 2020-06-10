@@ -433,7 +433,16 @@ public class Ticketmaster{
 		// 		continue;
 		// 	}
 		// } while(true);
-		System.out.println(esql.getCurrSeqVal("Bookings"));
+		do {
+			try{
+				System.out.println(esql.getCurrSeqVal("Bookings"));
+			
+			} catch (Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+		 	}
+		} while (true);
+		
 	}
 	
 	public static void AddMovieShowingToTheater(Ticketmaster esql){//3
