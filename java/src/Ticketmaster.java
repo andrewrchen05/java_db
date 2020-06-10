@@ -318,20 +318,6 @@ public class Ticketmaster{
 
 	public static void AddUser(Ticketmaster esql){//1
 		// insert tuple into database
-<<<<<<< HEAD
-		try {
-			do {
-				
-			
-			} while (true) {
-
-			}
-		
-		
-		} catch (Exception e) {
-
-		} 
-=======
 		
 		//gather data
 		String email;
@@ -428,11 +414,25 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		
->>>>>>> 0f6aae7dabb83df4b5ba769942d7fb9d4d096725
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
-		
+		// do{
+		// 	System.out.println("Email: ");
+		// 	try {
+		// 		email = in.readLine();
+		// 		if(email.length() > 64 || email.length() <= 0)  {
+		// 			throw new ArithmeticException("Email cannot be empty and has  to be less than 64 characters.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+		System.out.println(getCurrSeqVal(Bookings));
 	}
 	
 	public static void AddMovieShowingToTheater(Ticketmaster esql){//3
