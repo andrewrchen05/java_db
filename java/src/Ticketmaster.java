@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.math.BigInteger;
 
 /**
  * This class defines a simple embedded SQL utility class that is designed to
@@ -377,8 +378,8 @@ public class Ticketmaster{
 		do{
 			System.out.println("Phone number: ");
 			try {
-				phone = Integer.parseInt(in.readLine());
-				if(phone > 9999999999 || phone < 0) {
+				phone = Long.parseLong(in.readLine());
+				if(phone > 9999999999L || phone < 0) {
 					throw new ArithmeticException("Phone number cannot be empty and has to be less than 10 digits");
 				}
 				else {
