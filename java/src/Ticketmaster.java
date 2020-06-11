@@ -434,7 +434,7 @@ public class Ticketmaster{
 		try {
 			String query_user = "SELECT * FROM Users WHERE email = " + email;
 
-			if (esql.executeQueryAndPrintREsult(query_user) == 0) {
+			if (esql.executeQueryAndPrintResult(query_user) == 0) {
 				System.out.println("This user does not exist"); 
 			}
 		} catch (Exception e) {
