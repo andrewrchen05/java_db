@@ -881,7 +881,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query = "SELECT s.sid\n FROM Showseats\n GROUP BY sid HAVING s.sid = '" + sid + "';";
+			String query = "SELECT sid, count(ssid)\n FROM Showseats\n GROUP BY sid HAVING s.sid = '" + sid + "';";
 			if (esql.executeQueryAndPrintResult(query) == 0) {
 				System.out.println("This does not exist"); 
 			}
