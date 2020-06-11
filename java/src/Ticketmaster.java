@@ -440,7 +440,7 @@ public class Ticketmaster{
 		//insert into table
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_user = "SELECT *\n FROM Users\n WHERE email = user_email ";
+			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
 			if (esql.executeQueryAndPrintResult(query_user) == 0) {
 				System.out.println("This user does not exist"); 
 			}
