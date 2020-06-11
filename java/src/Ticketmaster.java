@@ -854,10 +854,12 @@ public class Ticketmaster{
 		// 	}
 		// } while(true);
 		String titanic = "Titanic";
+
+		List<List<String>> vector;
 		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			List<List<String>> vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+			vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
 			if (esql.executeQueryAndPrintResult(movie_title) == 0) {
 				System.out.println("This  does not exist"); 
 			}
