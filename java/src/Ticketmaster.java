@@ -877,7 +877,18 @@ public class Ticketmaster{
 		String item = vector.get(0).get(0);
 		System.out.println(item);
 
-		
+		Integer sid = Integer.parseInt(item);
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query = "SELECT s.sid\n FROM Showseats\n GROUP BY sid HAVING s.sid = '" + sid + "';";
+			if (esql.executeQueryAndPrintResult(query); == 0) {
+				System.out.println("This does not exist"); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		// try {
 		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
