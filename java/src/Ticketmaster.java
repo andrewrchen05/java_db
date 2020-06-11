@@ -504,8 +504,8 @@ public class Ticketmaster{
 		do{
 			System.out.println("Which day does the customer want to attend the show?: ");
 			try {
-				day = in.readLine();
-				if(day.length() > 8 || day.length() == 0)  {
+				time = in.readLine();
+				if(time.length() > 8 || time.length() == 0)  {
 					throw new RuntimeException("Time cannot be more than 8 characters");
 				}
 				else {
