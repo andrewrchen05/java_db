@@ -523,7 +523,7 @@ public class Ticketmaster{
 								"'and sttime = '" + time + "';";
 
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
