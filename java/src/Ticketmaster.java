@@ -817,12 +817,47 @@ public class Ticketmaster{
 			}
 		} while(true);
 		
-		String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+		try {
+			String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
-		//
-		
+		String sdate;
+		String sttime;
+
+		do{
+			System.out.println("Show date(M/D/YYYY): ");
+			try {
+				sdate = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Start time in military time(HH:MM): ");
+			try {
+				sttime = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		try {
+			String query = "SELECT S.sid FROM Shows S WHERE S.sdate = " + sdate + " AND S.sttime = " + sttime + ";";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
