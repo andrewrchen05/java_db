@@ -533,7 +533,7 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		// String item1 = date_time.get(0).get(0);
+		String item1 = date_time.get(0).get(0);
 		// Integer sid = Integer.parseInt(item1);
 		// System.out.println(sid);
 
