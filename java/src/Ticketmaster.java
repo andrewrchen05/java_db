@@ -910,7 +910,7 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println(vector.IndexOf(0).IndexOf(0));
+		//System.out.println(vector.IndexOf(0).IndexOf(0));
 		
 
 		// try {
@@ -927,8 +927,67 @@ public class Ticketmaster{
 	}
 
 	public static void ListBookingInfoForUser(Ticketmaster esql){//14
-		//
-		
+		//get email and password for User
+		String email;
+		String pwd;
+		do{
+			System.out.println("Email: ");
+			try {
+				email = in.readLine();
+				if(email.length() > 64 || email.length() == 0)  {
+					throw new ArithmeticException("Email cannot be empty and has to be less 64 characters or less.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Password: ");
+			try {
+				pwd = in.readLine();
+				if(pwd.length() > 64 || pwd.length() == 0) {
+					throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		try {// find if user and password match (if it exists in database)
+			String queryFindUser = "SELECT U.email FROM Users U WHERE U.email = " + email + " AND U.pwd = " + pwd + ";";
+			if((esql.executeQuery(queryFindUser)) == 0)  {
+				System.out.println("Invalid email or password!");
+			}
+			else {
+			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
+			//all Bookings of a Given User
+				try {
+					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno "
+											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P "
+											+ "WHERE U.email = B.email " //connects User and Booking
+											+ "AND S.mvid = M.mvid " // Shows to movies
+											+ "AND S.sid = P.sid "  //Shows to plays
+											+ "AND P.tid = T.tid;"; //plays to theater
+											//idk if that is right ^ missing some links but i think it is ok bc of the relationships
+											// and there are no way to link them i.e. cinema seating and theater but if theres a theater theres a seat
+					esql.executeQueryAndPrintResult(queryBookingInfo);
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 	
 }
