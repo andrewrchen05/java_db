@@ -497,12 +497,11 @@ public class Ticketmaster{
 		String time = "";
 		
 		do{
-			System.out.println("Which day does the customer want to attend the show?: ");
-			date = in.readLine();
-			System.out.println("What time does the customer want to attend the show?: ");
-			time = in.readLine();
 			try {
+				System.out.println("Which day does the customer want to attend the show?: ");
 				date = in.readLine();
+				System.out.println("What time does the customer want to attend the show?: ");
+				time = in.readLine();
 				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
 					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
 				}
@@ -534,8 +533,9 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		String item1 = movie_id_list.get(0).get(0);
+		String item1 = date_time.get(0).get(0);
 		Integer sid = Integer.parseInt(item1);
+		System.out.println(sid);
 
 
 		//do {
