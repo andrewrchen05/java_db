@@ -869,7 +869,7 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println(vector.at(0).at(0));
+		System.out.println(vector.IndexOf(0).IndexOf(0));
 		
 
 		// try {
