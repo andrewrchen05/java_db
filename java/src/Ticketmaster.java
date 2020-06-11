@@ -520,7 +520,7 @@ public class Ticketmaster{
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_mvid = "SELECT sid\n FROM Shows\n WHERE mvid = '" + mvid + "'and sdate= '" + date + 
-								"'sttime = '" + time + " ;";
+								"'and sttime = '" + time + " ;";
 
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
 			esql.executeQueryAndPrintResult(query_mvid);
