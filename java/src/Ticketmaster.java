@@ -409,7 +409,8 @@ public class Ticketmaster{
 
 		//insert into table
 		try {
-			String query = "INSERT INTO Users (email, lname, fname, phone, pwd) VALUES (" + email + ", '" + lname + "', '" + fname + ", '" + phone + ", '" + pwd + ");";
+			String query = "INSERT INTO Users (email, lname, fname, phone, pwd) VALUES ('" + email + "', '" + lname + "', '" + fname + "', '" + phone + "', '" + pwd + "');";
+			
 			esql.executeUpdate(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
