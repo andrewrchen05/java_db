@@ -435,7 +435,7 @@ public class Ticketmaster{
 		// } while(true);
 		do {
 			try{
-				System.out.println(esql.getCurrSeqVal("Bookings"));
+				System.out.println(esql.getCurrSeqVal("bid"));
 			
 			} catch (Exception e) {
 				System.out.println("Your input is invalid!");
