@@ -520,7 +520,7 @@ public class Ticketmaster{
 		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String movie_title = "SELECT sid\n FROM Shows\n WHERE sstime = '" + time + "';";
+			String movie_title = "SELECT sid\n FROM Shows\n WHERE sttime = '" + time + "';";
 			if (esql.executeQueryAndPrintResult(movie_title) == 0) {
 				System.out.println("This  does not exist"); 
 			}
