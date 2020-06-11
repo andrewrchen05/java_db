@@ -488,32 +488,32 @@ public class Ticketmaster{
 		}
 
 		String item = movie_id_list.get(0).get(0);
-		//Integer mvid = Integer.parseInt(item);
-		//System.out.println(mvid);
+		Integer mvid = Integer.parseInt(item);
+		System.out.println(mvid);
 
 		//NOW WE HAVE THE MOVIE ID
 
-		// String date = "";
-		// String time = "";
+		String date = "";
+		String time = "";
 		
-		// do{
-		// 	try {
-		// 		System.out.println("Which day does the customer want to attend the show?: ");
-		// 		date = in.readLine();
-		// 		System.out.println("What time does the customer want to attend the show?: ");
-		// 		time = in.readLine();
-		// 		if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
-		// 			throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
+		do{
+			try {
+				System.out.println("Which day does the customer want to attend the show?: ");
+				date = in.readLine();
+				System.out.println("What time does the customer want to attend the show?: ");
+				time = in.readLine();
+				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
+					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				}
+				else {
+					break;
+				}
 
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 
 		// List<List<String>> date_time = new ArrayList<List<String>>();
 
