@@ -865,15 +865,15 @@ public class Ticketmaster{
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-			if (vector = esql.executeQueryAndReturnResult(query) == 0) {
+			vector = esql.executeQueryAndReturnResult(query);
+			if (vector.size() != 0) {
 				System.out.println("This  does not exist"); 
 			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-		System.out.println(vector.size());
+		
 
 		// try {
 		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
