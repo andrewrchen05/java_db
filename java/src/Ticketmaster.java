@@ -419,28 +419,53 @@ public class Ticketmaster{
 	
 	public static void AddBooking(Ticketmaster esql){//2
 
-		String email;
+		string email;
 		do{
-			System.out.println("Input User's Email: ");
+			System.out.println("Email: ");
 			try {
 				email = in.readLine();
-
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
 				continue;
 			}
 		} while(true);
 
+		//insert into table
 		try {
-			String query_user = "SELECT * FROM Users WHERE email = " + email;
-
-			if (esql.executeQueryAndPrintREsult(query_user) == 0) {
+			query_user = "SELECT * FROM Users WHERE email = " + email;
+			if (esql.executeQueryAndPrintResult(query_user) == 0) {
 				System.out.println("This user does not exist"); 
 			}
-		} catch (Exception e) {
-			System.out.println("Your input is invalid!");
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 
+
+
+		// String email;
+		// do{
+		// 	System.out.println("Input User's Email: ");
+		// 	try {
+		// 		email = in.readLine();
+
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// String query_user;
+		// try {
+		// 	query_user = "SELECT * FROM Users WHERE email = " + email;
+
+		// 	if (esql.executeQueryAndPrintResult(query_user) == 0) {
+		// 		System.out.println("This user does not exist"); 
+		// 	}
+		// } catch (Exception e) {
+		// 	System.out.println("Your input is invalid!");
+		// }
+		////////
 		// long bid; //Given user, show, movie, seating, theater and cinema, add a booking
 
 		// do{
