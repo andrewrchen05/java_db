@@ -334,7 +334,7 @@ public class Ticketmaster{
 			try {
 				email = in.readLine();
 				if(email.length() > 64 || email.length() == 0)  {
-					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
+					throw new ArithmeticException("Email cannot be empty and has to be less 64 characters or less.");
 				}
 				else {
 					break;
@@ -350,7 +350,7 @@ public class Ticketmaster{
 			try {
 				lname = in.readLine();
 				if(lname.length() > 32 || lname.length() == 0)  {
-					throw new ArithmeticException("Last name cannot be empty and has  to be less than 32 characters.");
+					throw new ArithmeticException("Last name cannot be empty and has 32 characters or less.");
 				}
 				else {
 					break;
@@ -366,7 +366,7 @@ public class Ticketmaster{
 			try {
 				fname = in.readLine();
 				if(fname.length() > 32 || fname.length() == 0)  {
-					throw new ArithmeticException("First name cannot be empty and has to be less than 32 characters.");
+					throw new ArithmeticException("First name cannot be empty and has to be 32 characters or less.");
 				}
 				else {
 					break;
@@ -382,7 +382,7 @@ public class Ticketmaster{
 			try {
 				phone = Long.parseLong(in.readLine());
 				if(phone > 9999999999L || phone < 0) {
-					throw new ArithmeticException("Phone number cannot be empty and has to be less than 10 digits");
+					throw new ArithmeticException("Phone number cannot be empty and has to be 10 digits or less.");
 				}
 				else {
 					break;
@@ -398,7 +398,7 @@ public class Ticketmaster{
 			try {
 				pwd = in.readLine();
 				if(pwd.length() > 64 || pwd.length() == 0) {
-					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
+					throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
 				}
 				else {
 					break;
@@ -536,92 +536,251 @@ public class Ticketmaster{
 		/*takes input of the information of a new movie (i.e. title, duration) and 
 		show(i.e. start time) and checks if the provided information is valid based 
 		on the constraints of the database schema.*/
-	// 	Integer mvid;
-	// 	String title;
-	// 	rdate;
-	// 	String country;
-	// 	String description;
-	// 	int duration;
-	// 	String lang;
-	// 	String genre;
+		//create movie
+		int mvid;
+		String title;
+		String rdate;
+		String country;
+		String description = "";
+		int duration = 0;
+		String lang = "";
+		String genre = "";
 
-	// 	do{
-	// 		System.out.println("Movie ID: ");
-	// 		try {
-	// 			mvid = Integer.parseInt(in.readLine());
-	// 			break;
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		do{
+			System.out.println("Movie ID: ");
+			try {
+				mvid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 
-	// 	do{
-	// 		System.out.println("Title of movie: ");
-	// 		try {
-	// 			title = in.readLine();
-	// 			if(title.length() == 0 || title.length() > 128)  {
-	// 				throw new ArithmeticException("Title cannot be empty and has to be less than 129 characters.");
-	// 			}
-	// 			else {
-	// 				break;
-	// 			}
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		do{
+			System.out.println("Title of movie: ");
+			try {
+				title = in.readLine();
+				if(title.length() == 0 || title.length() > 128)  {
+					throw new ArithmeticException("Title cannot be empty and has to be less than 129 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Release Date(M/D/YYYY): ");
+			try {
+				rdate = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Country of movie: ");
+			try {
+				country = in.readLine();
+				if(title.length() == 0 || title.length() > 64)  {
+					throw new ArithmeticException("Country of movie cannot be empty and has to be less than 65 characters.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
-	// 	//Do date
+		System.out.println("Would you like to enter a description for this movie? (Y/N)");
+		String answer;
+		try {
+			answer = in.readLine();
+			if(answer.equals("N")) {
+				description = "";
+			}
+			else { //just assume they say Y and not other characaters
+				System.out.println("Enter description: ");
+				try {
+					description = in.readLine();
+				} catch(Exception e) {
+					System.out.println("Your input is invalid!");
+				}
+			}
+	
+		} catch(Exception e) {
+			System.out.println("Your input is invalid!");
+		}
 
-	// 	do{
-	// 		System.out.println("Country of movie: ");
-	// 		try {
-	// 			country = in.readLine();
-	// 			if(title.length() == 0 || title.length() > 64)  {
-	// 				throw new ArithmeticException("Country of movie cannot be empty and has to be less than 65 characters.");
-	// 			}
-	// 			else {
-	// 				break;
-	// 			}
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		System.out.println("Would you like to enter the duration for this movie? (Y/N)");
+		try {
+			answer = in.readLine();
+			if(answer.equals("N")) {
+				duration = 0;
+			}
+			else { //just assume they say Y and not other characaters
+				do {
+					System.out.println("Enter duration in seconds: ");
+					try {
+						duration = Integer.parseInt(in.readLine());
+						break;
+					} catch(Exception e) {
+						System.out.println("Your input is invalid!");
+						continue;
+					}
+				} while(true);
+			}
+	
+		} catch(Exception e) {
+			System.out.println("Your input is invalid!");
+		}
 
-	// 	do{
-	// 		System.out.println("Description for movie: ");
-	// 		try {
-	// 			description = in.readLine();
-	// 			break;
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		System.out.println("Would you like to enter the language for this movie? (Y/N)");
+		try {
+			answer = in.readLine();
+			if(answer.equals("N")) {
+				lang = "";
+			}
+			else { //just assume they say Y and not other characaters
+				do {
+					System.out.println("Enter language using 2 characters (i.e. en for english): ");
+					try {
+						lang = in.readLine();
+						if(lang.length() > 2) {
+							throw new ArithmeticException("Language cannot be more than 2 characters");
+						}
+						else {
+							break;
+						}
+					} catch(Exception e) {
+						System.out.println("Your input is invalid!");
+						continue;
+					}
+				} while(true);
+			}
+	
+		} catch(Exception e) {
+			System.out.println("Your input is invalid!");
+		}
 
-	// 	do{
-	// 		System.out.println("Duration of movie: ");
-	// 		try {
-	// 			duration = Integer.parseInt(in.readLine());
-	// 			break;
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		System.out.println("Would you like to enter the genre for this movie? (Y/N)");
+		try {
+			answer = in.readLine();
+			if(answer.equals("N")) {
+				genre = "";
+			}
+			else { //just assume they say Y and not other characaters
+				do {
+					System.out.println("Genre: ");
+					try {
+						genre = in.readLine();
+						if(genre.length() > 16) {
+							throw new ArithmeticException("Genre cannot be more than 16 characters");
+						}
+						else {
+							break;
+						}
+					} catch(Exception e) {
+						System.out.println("Your input is invalid!");
+						continue;
+					}
+				} while(true);
+			}
+		} catch(Exception e) {
+			System.out.println("Your input is invalid!");
+		}
 
-	// 	do{
-	// 		System.out.println("Duration of movie: ");
-	// 		try {
-	// 			duration = Integer.parseInt(in.readLine());
-	// 			break;
-	// 		} catch(Exception e) {
-	// 			System.out.println("Your input is invalid!");
-	// 			continue;
-	// 		}
-	// 	} while(true);
+		try {
+			String queryOne = "INSERT INTO Movies (mvid, title, rdate, country, description, duration, lang, genre) VALUES ('" + mvid + "', '" + title + "', '" + rdate + "', '" + country + "', '" + description + "', '" + duration + "', '" + lang + "', '" + genre + "');";
+			esql.executeUpdate(queryOne);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//create show
+		int sid;
+		String sdate;
+		String sttime;
+		String edtime;
+
+		do{
+			System.out.println("Show ID: ");
+			try {
+				sid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Show date(M/D/YYYY): ");
+			try {
+				sdate = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("Start time in military time(HH:MM): ");
+			try {
+				sttime = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		do{
+			System.out.println("End time also in miltary time(HH:MM): ");
+			try {
+				edtime = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+					continue;
+			}
+		} while(true);
+
+		try {
+			String queryTwo = "INSERT INTO Shows (sid, mvid, sdate, sttime, edtime) VALUES ('" + sid + "', '" + mvid + "', '" + sdate + "', '" + sttime + "', '" + edtime + "');";
+			esql.executeUpdate(queryTwo);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		//connect show and theater
+		int tid;
+		do{
+			System.out.println("Enter theater ID you want to add to: ");
+			try {
+				tid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		try {
+			String queryThree = "INSERT INTO Plays (sid, tid) VALUES ('" + sid + "', '" + tid + "');";
+			esql.executeUpdate(queryThree);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 	
 	public static void CancelPendingBookings(Ticketmaster esql){//4
@@ -655,7 +814,7 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
-		//
+		
 		
 	}
 
@@ -665,7 +824,7 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
-		//
+		
 		
 	}
 
