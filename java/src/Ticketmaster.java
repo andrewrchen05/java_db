@@ -500,23 +500,23 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		String time; //TIME
-		do{
-			System.out.println("Which day does the customer want to attend the show?: ");
-			try {
-				day = in.readLine();
-				if(day.length() > 8 || day.length() == 0)  {
-					throw new RuntimeException("Time cannot be more than 8 characters");
-				}
-				else {
-					break;
-				}
+		// String time; //TIME
+		// do{
+		// 	System.out.println("Which day does the customer want to attend the show?: ");
+		// 	try {
+		// 		day = in.readLine();
+		// 		if(day.length() > 8 || day.length() == 0)  {
+		// 			throw new RuntimeException("Time cannot be more than 8 characters");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
 
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-			}
-		} while(true);
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
 		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
