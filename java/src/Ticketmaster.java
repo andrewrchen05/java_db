@@ -817,7 +817,12 @@ public class Ticketmaster{
 			}
 		} while(true);
 		
-		String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+		try {
+			String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
