@@ -859,8 +859,8 @@ public class Ticketmaster{
 		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-			if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+			String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+			if (vector = esql.executeQueryAndReturnResult(query) == 0) {
 				System.out.println("This  does not exist"); 
 			}
 			
