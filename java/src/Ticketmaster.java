@@ -331,7 +331,7 @@ public class Ticketmaster{
 			System.out.println("Email: ");
 			try {
 				email = in.readLine();
-				if(email.length() > 64 || email.length() <= 0)  {
+				if(email.length() > 64 || email.length() == 0)  {
 					throw new ArithmeticException("Email cannot be empty and has  to be less than 64 characters.");
 				}
 				else {
@@ -347,7 +347,7 @@ public class Ticketmaster{
 			System.out.println("Last name: ");
 			try {
 				lname = in.readLine();
-				if(lname.length() > 32 || lname.length() <= 0)  {
+				if(lname.length() > 32 || lname.length() == 0)  {
 					throw new ArithmeticException("Last name cannot be empty and has  to be less than 32 characters.");
 				}
 				else {
@@ -363,7 +363,7 @@ public class Ticketmaster{
 			System.out.println("First name: ");
 			try {
 				fname = in.readLine();
-				if(fname.length() > 32 || fname.length() <= 0)  {
+				if(fname.length() > 32 || fname.length() == 0)  {
 					throw new ArithmeticException("First name cannot be empty and has to be less than 32 characters.");
 				}
 				else {
@@ -395,7 +395,7 @@ public class Ticketmaster{
 			System.out.println("Password: ");
 			try {
 				pwd = in.readLine();
-				if(pwd.length() > 64 || pwd.length() <= 0) {
+				if(pwd.length() > 64 || pwd.length() == 0) {
 					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
 				}
 				else {
@@ -446,7 +446,95 @@ public class Ticketmaster{
 	}
 	
 	public static void AddMovieShowingToTheater(Ticketmaster esql){//3
+		/*takes input of the information of a new movie (i.e. title, duration) and 
+		show(i.e. start time) and checks if the provided information is valid based 
+		on the constraints of the database schema.*/
+	// 	Integer mvid;
+	// 	String title;
+	// 	rdate;
+	// 	String country;
+	// 	String description;
+	// 	int duration;
+	// 	String lang;
+	// 	String genre;
+
+	// 	do{
+	// 		System.out.println("Movie ID: ");
+	// 		try {
+	// 			mvid = Integer.parseInt(in.readLine());
+	// 			break;
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
+
+	// 	do{
+	// 		System.out.println("Title of movie: ");
+	// 		try {
+	// 			title = in.readLine();
+	// 			if(title.length() == 0 || title.length() > 128)  {
+	// 				throw new ArithmeticException("Title cannot be empty and has to be less than 129 characters.");
+	// 			}
+	// 			else {
+	// 				break;
+	// 			}
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
 		
+	// 	//Do date
+
+	// 	do{
+	// 		System.out.println("Country of movie: ");
+	// 		try {
+	// 			country = in.readLine();
+	// 			if(title.length() == 0 || title.length() > 64)  {
+	// 				throw new ArithmeticException("Country of movie cannot be empty and has to be less than 65 characters.");
+	// 			}
+	// 			else {
+	// 				break;
+	// 			}
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
+
+	// 	do{
+	// 		System.out.println("Description for movie: ");
+	// 		try {
+	// 			description = in.readLine();
+	// 			break;
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
+
+	// 	do{
+	// 		System.out.println("Duration of movie: ");
+	// 		try {
+	// 			duration = Integer.parseInt(in.readLine());
+	// 			break;
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
+
+	// 	do{
+	// 		System.out.println("Duration of movie: ");
+	// 		try {
+	// 			duration = Integer.parseInt(in.readLine());
+	// 			break;
+	// 		} catch(Exception e) {
+	// 			System.out.println("Your input is invalid!");
+	// 			continue;
+	// 		}
+	// 	} while(true);
 	}
 	
 	public static void CancelPendingBookings(Ticketmaster esql){//4
