@@ -893,17 +893,25 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		Integer mvid;
+		List<List<String>> movie_id_list = new ArrayList<List<String>>();
+
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
-			if (mvid = esql.executeQueryAndPrintResult(query_user) == 0) {
+			movie_id = esql.executeQueryAndReturnResult(query_mvid);
+			if (movie_id_list.size() == 0) {
 				System.out.println("This  does not exist"); 
 			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		String item = movie_id_list.get(0).get(0);
+		Integer mvid = Integer.parseInt(item);
+
+		//NOW WE HAVE THE MOVIE ID
+
 		do {
 			try {
 				String day; //DAY
@@ -947,61 +955,65 @@ public class Ticketmaster{
 				continue;
 			}
 		} while(true);
+
+
+
+
 		
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String movie_title = "SELECT sid\n FROM Shows\n WHERE sttime = '" + time + "';";
-		// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	try {
+	// 		//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 		String movie_title = "SELECT sid\n FROM Shows\n WHERE sttime = '" + time + "';";
+	// 		if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+	// 			System.out.println("This  does not exist"); 
+	// 		}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	} catch(Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
 
 
-		// String titanic = "Titanic";
+	// 	String titanic = "Titanic";
 
-		// List<List<String>> vector = new ArrayList<List<String>>();
+	// 	List<List<String>> vector = new ArrayList<List<String>>();
 		
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-		// 	vector = esql.executeQueryAndReturnResult(query);
-		// 	if (vector.size() == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	try {
+	// 		//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 		String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+	// 		vector = esql.executeQueryAndReturnResult(query);
+	// 		if (vector.size() == 0) {
+	// 			System.out.println("This  does not exist"); 
+	// 		}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	} catch(Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
 
-		// String item = vector.get(0).get(0);
-		// System.out.println(item);
+	// 	String item = vector.get(0).get(0);
+	// 	System.out.println(item);
 
-		// Integer sid = Integer.parseInt(item);
+	// 	Integer sid = Integer.parseInt(item);
 
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query = "SELECT sid, count(ssid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
-		// 	if (esql.executeQueryAndPrintResult(query) == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+	// 	try {
+	// 		//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 		String query = "SELECT sid, count(ssid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
+	// 		if (esql.executeQueryAndPrintResult(query) == 0) {
+	// 			System.out.println("This does not exist"); 
+	// 		}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	} catch(Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
 
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	List<List<String>> vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-		// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	try {
+	// 		//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 		List<List<String>> vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+	// 		if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+	// 			System.out.println("This  does not exist"); 
+	// 		}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
-	}
+	// 	} catch(Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
+	// }
 	
 }
