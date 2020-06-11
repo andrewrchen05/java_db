@@ -805,8 +805,19 @@ public class Ticketmaster{
 	}
 	
 	public static void ListTheatersPlayingShow(Ticketmaster esql){//9
-		//
+		int sid;
+		do{
+			System.out.println("Enter show ID to find Theaters: ");
+			try {
+				sid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
+		String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
 	}
 	
 	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
