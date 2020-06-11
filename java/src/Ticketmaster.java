@@ -482,31 +482,13 @@ public class Ticketmaster{
 		// 	System.out.println(e.getMessage());
 		// }
 
-		String day; //DAY
-		do{
-			System.out.println("Which day does the customer want to attend the show?: ");
-			try {
-				day = in.readLine();
-				if(day.length() > 10 || day.length() == 0)  {
-					throw new RuntimeException("Date cannot be more than 10 characters.");
-				}
-				else {
-					break;
-				}
-
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-			}
-		} while(true);
-
-		// String time; //TIME
+		// String day; //DAY
 		// do{
 		// 	System.out.println("Which day does the customer want to attend the show?: ");
 		// 	try {
 		// 		day = in.readLine();
-		// 		if(day.length() > 8 || day.length() == 0)  {
-		// 			throw new RuntimeException("Time cannot be more than 8 characters");
+		// 		if(day.length() > 10 || day.length() == 0)  {
+		// 			throw new RuntimeException("Date cannot be more than 10 characters.");
 		// 		}
 		// 		else {
 		// 			break;
@@ -517,10 +499,28 @@ public class Ticketmaster{
 		// 		continue;
 		// 	}
 		// } while(true);
+
+		String time; //TIME
+		do{
+			System.out.println("Which day does the customer want to attend the show?: ");
+			try {
+				day = in.readLine();
+				if(day.length() > 8 || day.length() == 0)  {
+					throw new RuntimeException("Time cannot be more than 8 characters");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String movie_title = "SELECT title\n FROM Movies\n WHERE rdate = '" + day + "';";
+			String movie_title = "SELECT sid\n FROM Shows\n WHERE sstime = '" + time + "';";
 			if (esql.executeQueryAndPrintResult(movie_title) == 0) {
 				System.out.println("This  does not exist"); 
 			}
