@@ -477,7 +477,7 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			//sql.executeQueryAndPrintResult(query_mvid);
+			esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -523,9 +523,9 @@ public class Ticketmaster{
 								"'and sttime = '" + time + "';";
 
 			date_time = esql.executeQueryAndReturnResult(query_mvid);
-			//esql.executeQueryAndPrintResult(query_mvid);
+			esql.executeQueryAndPrintResult(query_mvid);
 
-			if (movie_id_list.size() == 0) {
+			if (date_time.size() == 0) {
 				System.out.println("This does not exist"); 
 			}
 			
