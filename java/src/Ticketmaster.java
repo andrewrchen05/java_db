@@ -419,11 +419,11 @@ public class Ticketmaster{
 	
 	public static void AddBooking(Ticketmaster esql){//2
 
-		string email;
+		String email;
 		do{
 			System.out.println("Input User's Email: ");
 			try {
-				bid = in.readLine();
+				email = in.readLine();
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
@@ -432,14 +432,13 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			string query_user = "SELECT * FROM Users WHERE email = " + email;
+			String query_user = "SELECT * FROM Users WHERE email = " + email;
 
-			if (esql.executeQueryAndPrintREsult(query) == 0) {
+			if (esql.executeQueryAndPrintREsult(query_user) == 0) {
 				System.out.println("This user does not exist"); 
 			}
 		} catch (Exception e) {
 			System.out.println("Your input is invalid!");
-				continue;
 		}
 
 		// long bid; //Given user, show, movie, seating, theater and cinema, add a booking
