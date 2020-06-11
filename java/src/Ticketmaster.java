@@ -423,8 +423,8 @@ public class Ticketmaster{
 		do{
 			System.out.println("Email: ");
 			try {
-				email = in.readLine();
-				if(email.length() > 64 || email.length() == 0)  {
+				user_email = in.readLine();
+				if(user_email.length() > 64 || user_email.length() == 0)  {
 					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
 				}
 				else {
