@@ -488,58 +488,58 @@ public class Ticketmaster{
 		}
 
 		String item = movie_id_list.get(0).get(0);
-		Integer mvid = Integer.parseInt(item);
+		//Integer mvid = Integer.parseInt(item);
 		//System.out.println(mvid);
 
 		//NOW WE HAVE THE MOVIE ID
 
-		String date = "";
-		String time = "";
+		// String date = "";
+		// String time = "";
 		
-		do{
-			try {
-				System.out.println("Which day does the customer want to attend the show?: ");
-				date = in.readLine();
-				System.out.println("What time does the customer want to attend the show?: ");
-				time = in.readLine();
-				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
-					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
-				}
-				else {
-					break;
-				}
+		// do{
+		// 	try {
+		// 		System.out.println("Which day does the customer want to attend the show?: ");
+		// 		date = in.readLine();
+		// 		System.out.println("What time does the customer want to attend the show?: ");
+		// 		time = in.readLine();
+		// 		if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
+		// 			throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
 
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-			}
-		} while(true);
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
 
-		List<List<String>> date_time = new ArrayList<List<String>>();
+		// List<List<String>> date_time = new ArrayList<List<String>>();
 
-		try {
-			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_mvid = "SELECT sid\n FROM Shows\n WHERE mvid = '" + mvid + "'and sdate= '" + date + 
-								"'and sttime = '" + time + "';";
+		// try {
+		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+		// 	String query_mvid = "SELECT sid\n FROM Shows\n WHERE mvid = '" + mvid + "'and sdate= '" + date + 
+		// 						"'and sttime = '" + time + "';";
 
-			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			//esql.executeQueryAndPrintResult(query_mvid);
+		// 	movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
+		// 	//esql.executeQueryAndPrintResult(query_mvid);
 
-			if (movie_id_list.size() == 0) {
-				System.out.println("This does not exist"); 
-			}
+		// 	if (movie_id_list.size() == 0) {
+		// 		System.out.println("This does not exist"); 
+		// 	}
 			
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
 
-		String item1 = date_time.get(0).get(0);
-		Integer sid = Integer.parseInt(item1);
-		System.out.println(sid);
+		// String item1 = date_time.get(0).get(0);
+		// Integer sid = Integer.parseInt(item1);
+		// System.out.println(sid);
 
-		for (int i = 0; i < 3; ++i) {
-			System.out.println(sid);
-		}
+		// for (int i = 0; i < 3; ++i) {
+		// 	System.out.println(sid);
+		// }
 
 
 		//do {
