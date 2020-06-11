@@ -419,11 +419,18 @@ public class Ticketmaster{
 	
 	public static void AddBooking(Ticketmaster esql){//2
 
-		string email;
+		String email;
 		do{
 			System.out.println("Email: ");
 			try {
 				email = in.readLine();
+				if(email.length() > 64 || email.length() == 0)  {
+					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
 				continue;
