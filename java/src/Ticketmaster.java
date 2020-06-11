@@ -332,7 +332,7 @@ public class Ticketmaster{
 			try {
 				email = in.readLine();
 				if(email.length() > 64 || email.length() == 0)  {
-					throw new ArithmeticException("Email cannot be empty and has  to be less than 64 characters.");
+					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
 				}
 				else {
 					break;
@@ -418,30 +418,69 @@ public class Ticketmaster{
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
+
+		string email;
+		do{
+			System.out.println("Input User's Email: ");
+			try {
+				bid = in.readLine();
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		try {
+			string query_user = "SELECT * FROM Users WHERE email = " + email;
+
+			if (esql.executeQueryAndPrintREsult(query) == 0) {
+				System.out.println("This user does not exist"); 
+			}
+		} catch (Exception e) {
+			System.out.println("Your input is invalid!");
+				continue;
+		}
+
+		// long bid; //Given user, show, movie, seating, theater and cinema, add a booking
+
 		// do{
-		// 	System.out.println("Email: ");
+		// 	System.out.println("Input Booking ID: ");
 		// 	try {
-		// 		email = in.readLine();
-		// 		if(email.length() > 64 || email.length() <= 0)  {
-		// 			throw new ArithmeticException("Email cannot be empty and has  to be less than 64 characters.");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
+		// 		bid = Long.parseLong(in.readLine());
+
 		// 	} catch(Exception e) {
 		// 		System.out.println("Your input is invalid!");
 		// 		continue;
 		// 	}
 		// } while(true);
-		do {
-			try{
-				System.out.println(esql.getCurrSeqVal("bid"));
+
+		// string status;
+		// do{
+		// 	System.out.println("Input Booking Status: ");
+		// 	try {
+		// 		status = in.readLine();
+
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+		// // do {
+		// // 	try{
+		// // 		System.out.println(esql.getCurrSeqVal("bid"));
 			
-			} catch (Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-		 	}
-		} while (true);
+		// // 	} catch (Exception e) {
+		// // 		System.out.println("Your input is invalid!");
+		// // 		continue;
+		// //  	}
+		// // } while (true);
+		// try {
+		// 	String query = "INSERT INTO Bookings (email, lname, fname, phone, pwd) VALUES ('" + email + "', '" + lname + "', '" + fname + "', '" + phone + "', '" + pwd + "');";
+		// 	esql.executeUpdate(query);
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
 		
 	}
 	
