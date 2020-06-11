@@ -444,7 +444,8 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
 			if (esql.executeQuery(query_user) == 0) {
-				System.out.println("This user does not exist"); 
+				System.out.println("This user does not exist");
+				AddUser(esql); 
 			}
 			
 		} catch(Exception e) {
@@ -489,7 +490,7 @@ public class Ticketmaster{
 
 		String item = movie_id_list.get(0).get(0);
 		Integer mvid = Integer.parseInt(item);
-		System.out.println(mvid);
+		//System.out.println(mvid);
 
 		//NOW WE HAVE THE MOVIE ID
 
