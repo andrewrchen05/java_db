@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.BigInteger;
+import java.sql.Time;
+import java.sql.Date;
 
 /**
  * This class defines a simple embedded SQL utility class that is designed to
@@ -419,13 +421,74 @@ public class Ticketmaster{
 	
 	public static void AddBooking(Ticketmaster esql){//2
 
-		String user_email;
+		// String user_email;
+		// do{
+		// 	System.out.println("Email: ");
+		// 	try {
+		// 		user_email = in.readLine();
+		// 		if(user_email.length() > 64 || user_email.length() == 0)  {
+		// 			throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// //insert into table
+		// try {
+		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+		// 	String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
+		// 	if (esql.executeQueryAndReturnResult(query_user) == 0) {
+		// 		System.out.println("This user does not exist"); 
+		// 	}
+			
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+
+
+
+		// String movie; // MOVIE
+		// do{
+		// 	System.out.println("Which movie does the customer want to watch?: ");
+		// 	try {
+		// 		movie = in.readLine();
+		// 		if(movie.length() > 128 || movie.length() == 0)  {
+		// 			throw new RuntimeException("Movie cannot be empty and has to be less than 128 characters.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// try {
+		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+		// 	String movie_title = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
+		// 	if (esql.executeQueryAndReturnResult(query_user) == 0) {
+		// 		System.out.println("This  does not exist"); 
+		// 	}
+			
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+
+		String day; //DAY
 		do{
-			System.out.println("Email: ");
+			System.out.println("Which day does the customer want to attend the show?: ");
 			try {
-				user_email = in.readLine();
-				if(user_email.length() > 64 || user_email.length() == 0)  {
-					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
+				day = in.readLine();
+				if(day.length() > 10 || day.length() == 0)  {
+					throw new RuntimeException("Date cannot be more than 10 characters.");
 				}
 				else {
 					break;
@@ -437,82 +500,35 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		//insert into table
+		String time; //TIME
+		do{
+			System.out.println("Which day does the customer want to attend the show?: ");
+			try {
+				day = in.readLine();
+				if(day.length() > 8 || day.length() == 0)  {
+					throw new RuntimeException("Time cannot be more than 8 characters");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+		
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
-			if (esql.executeQueryAndPrintResult(query_user) == 0) {
-				System.out.println("This user does not exist"); 
+			String movie_title = "SELECT title\n FROM Movies\n WHERE date = '" + date + "';";
+			if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+				System.out.println("This  does not exist"); 
 			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-
-
-		// String email;
-		// do{
-		// 	System.out.println("Input User's Email: ");
-		// 	try {
-		// 		email = in.readLine();
-
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
-
-		// String query_user;
-		// try {
-		// 	query_user = "SELECT * FROM Users WHERE email = " + email;
-
-		// 	if (esql.executeQueryAndPrintResult(query_user) == 0) {
-		// 		System.out.println("This user does not exist"); 
-		// 	}
-		// } catch (Exception e) {
-		// 	System.out.println("Your input is invalid!");
-		// }
-		////////
-		// long bid; //Given user, show, movie, seating, theater and cinema, add a booking
-
-		// do{
-		// 	System.out.println("Input Booking ID: ");
-		// 	try {
-		// 		bid = Long.parseLong(in.readLine());
-
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
-
-		// string status;
-		// do{
-		// 	System.out.println("Input Booking Status: ");
-		// 	try {
-		// 		status = in.readLine();
-
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
-		// // do {
-		// // 	try{
-		// // 		System.out.println(esql.getCurrSeqVal("bid"));
-			
-		// // 	} catch (Exception e) {
-		// // 		System.out.println("Your input is invalid!");
-		// // 		continue;
-		// //  	}
-		// // } while (true);
-		// try {
-		// 	String query = "INSERT INTO Bookings (email, lname, fname, phone, pwd) VALUES ('" + email + "', '" + lname + "', '" + fname + "', '" + phone + "', '" + pwd + "');";
-		// 	esql.executeUpdate(query);
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		
 		
 	}
 	
