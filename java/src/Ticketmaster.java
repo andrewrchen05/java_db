@@ -515,23 +515,23 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		// List<List<String>> date_time = new ArrayList<List<String>>();
+		List<List<String>> date_time = new ArrayList<List<String>>();
 
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query_mvid = "SELECT sid\n FROM Shows\n WHERE mvid = '" + mvid + "'and sdate= '" + date + 
-		// 						"'and sttime = '" + time + "';";
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_mvid = "SELECT sid\n FROM Shows\n WHERE mvid = '" + mvid + "'and sdate= '" + date + 
+								"'and sttime = '" + time + "';";
 
-		// 	movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-		// 	//esql.executeQueryAndPrintResult(query_mvid);
+			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
-		// 	if (movie_id_list.size() == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+			if (movie_id_list.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		// String item1 = date_time.get(0).get(0);
 		// Integer sid = Integer.parseInt(item1);
