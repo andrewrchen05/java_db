@@ -270,7 +270,7 @@ public class Ticketmaster{
 				switch (readChoice()){
 					case 1: AddUser(esql); break;
 					case 2: AddBooking(esql); break;
-					case 3: AddMovieShowingToTheater(esql); break;
+					//case 3: AddMovieShowingToTheater(esql); break;
 					case 4: CancelPendingBookings(esql); break;
 					case 5: ChangeSeatsForBooking(esql); break;
 					case 6: RemovePayment(esql); break;
