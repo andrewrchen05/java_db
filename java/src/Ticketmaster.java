@@ -421,9 +421,8 @@ public class Ticketmaster{
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
-		String status = "pending";
+		//String status = "pending";
 
-		Integer id = -1;
 
 		do{
 			//System.out.println("Email: ");
@@ -441,10 +440,6 @@ public class Ticketmaster{
 				continue;
 			}
 		} while(true);
-
-		System.out.println(id);
-
-		System.exit(0);
 
 		String user_email;
 		do{
@@ -613,17 +608,21 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "';";
+			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' limit + '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
 			esql.executeQueryAndPrintResult(query_show_seat_id);
 
-			if (date_time.size() == 0) {
+			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
 			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
+		}
+
+		for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
+			System.out.println(show_seats_ids.get(0).get(i));
 		}
 
 		// String item3 = show_seat_ids.get(0).get(0);
