@@ -491,7 +491,7 @@ public class Ticketmaster{
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist");
 				//AddMovieShowingToTheater(esql); 
-				System.out.exit(0);
+				System.exit(0);
 				//movie doesn't exist, so add movie or choose another
 			}
 			
@@ -575,7 +575,7 @@ public class Ticketmaster{
 		do{
 			try {
 				System.out.println("How many seats does the customer want to book?: ");
-				seat_no = in.readLine();
+				seat_no = parseInt(in.readLine());
 				if(seat_no > max_possible_seats || seat_no <= 0)  {
 					throw new RuntimeException("There are only " + max_possible_seats + " seats available for this show.");
 				}
@@ -585,7 +585,7 @@ public class Ticketmaster{
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
-				exit(0); // we are not implementing sophisticated error checking
+				System.exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
