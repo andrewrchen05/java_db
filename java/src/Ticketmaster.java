@@ -1034,7 +1034,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT S.sid FROM Shows S WHERE S.sdate = " + sdate + " AND S.sttime = " + sttime + ";";
+			String query = "SELECT S.sid FROM Shows S Movies M WHERE S.sdate = " + sdate + " AND S.sttime = " + sttime + " AND M.mvid = S.mvid;";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
