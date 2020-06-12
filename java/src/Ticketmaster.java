@@ -614,7 +614,7 @@ public class Ticketmaster{
 			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' limit + '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-			//esql.executeQueryAndPrintResult(query_show_seat_id);
+			esql.executeQueryAndPrintResult(query_show_seat_id);
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -668,6 +668,7 @@ public class Ticketmaster{
 		//Update the bid for the seats that the customer has reserved
 		for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
 			//show_seat_ids.get(0).get(i)
+			System.out.println("Iteration" + i);
 
 			try {
 				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(i) + "';";
