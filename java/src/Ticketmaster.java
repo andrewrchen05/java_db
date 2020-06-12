@@ -679,17 +679,15 @@ public class Ticketmaster{
 		// 	}
 		// }
 
-		Integer iter = show_seat_ids.get(0).size() - 1;
-
-		do{
-			try {
-				iter -= 1;
-				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(iter) + "';";
+		try {
+			for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
+				System.out.println("Iteration: " + i);
+				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(i) + "';";
 				esql.executeUpdate(query);
-			} catch(Exception e) {
-				System.out.println(e.getMessage());
 			}
-		} while(iter > -1);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 
 	}
