@@ -667,17 +667,29 @@ public class Ticketmaster{
 
 
 		//Update the bid for the seats that the customer has reserved
-		for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
-			//show_seat_ids.get(0).get(i)
-			System.out.println("Iteration" + i);
+		// for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
+		// 	//show_seat_ids.get(0).get(i)
+		// 	System.out.println("Iteration" + i);
 
+		// 	try {
+		// 		String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(i) + "';";
+		// 		esql.executeUpdate(query);
+		// 	} catch(Exception e) {
+		// 		System.out.println(e.getMessage());
+		// 	}
+		// }
+
+		Integer iter = show_seat_ids.get(0).size() - 1;
+
+		do{
 			try {
-				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(i) + "';";
+				iter -= 1;
+				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(0).get(iter) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
-		}
+		} while(iter > -1);
 
 
 	}
