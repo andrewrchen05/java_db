@@ -643,7 +643,7 @@ public class Ticketmaster{
 			booking_id_list = esql.executeQueryAndReturnResult(booking_id_query);
 			esql.executeQueryAndPrintResult(booking_id_query);
 
-			if (booking_id.size() == 0) {
+			if (booking_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
 			}
 			
