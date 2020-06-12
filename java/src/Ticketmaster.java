@@ -569,13 +569,14 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "'and bid IS NULL OR bid = null'" + "';";
+			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;'";
 
 			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
 			esql.executeQueryAndPrintResult(query_max_num_seats);
 
-			if (date_time.size() == 0) {
-				System.out.println("This does not exist"); 
+			if (max_seats.size() == 0) {
+				System.out.println("There are no more seats for this show");
+				System.exit(0); 
 			}
 			
 		} catch(Exception e) {
