@@ -491,7 +491,7 @@ public class Ticketmaster{
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist");
 				//AddMovieShowingToTheater(esql); 
-				
+				System.out.exit(0);
 				//movie doesn't exist, so add movie or choose another
 			}
 			
@@ -523,7 +523,7 @@ public class Ticketmaster{
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
-				exit(0); // we are not implementing sophisticated error checking
+				System.exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
@@ -596,7 +596,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_show_seat_id = "SELECT COUNT(sid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
+			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
 			esql.executeQueryAndPrintResult(query_show_seat_id);
@@ -608,8 +608,9 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		String item2 = date_time.get(0).get(0);
-		Integer max_possible_seats = Integer.parseInt(item2);
+
+		// String item3 = show_seat_ids.get(0).get(0);
+		// Integer max_possible_seats = Integer.parseInt(item3);
 		
 
 
