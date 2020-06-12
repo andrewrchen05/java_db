@@ -25,9 +25,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.BigInteger;
+
 import java.sql.Time;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This class defines a simple embedded SQL utility class that is designed to
@@ -605,6 +608,7 @@ public class Ticketmaster{
 
 		List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
+		//The following code gives us a list of the ssids that we will need to update
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' limit + '" + seat_no + "';";
@@ -620,19 +624,53 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
-			System.out.println(show_seat_ids.get(0).get(i));
-		}
-
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
 		
 		String status = "pending"; //START CREATING THE BOOKING
 
-		LocalDate date = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss-xx");
-		String text = date.format(formatter);
-		LocalDate parsedDate = LocalDate.parse(text, formatter);
+		ZonedDateTime zone_date_time = ZonedDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ssx");
+		
+		String zdt = dtf.format(zone_date_time);
+
+		List<List<String>> booking_id_list = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String booking_id_query = "SELECT max(bid) from bookings";
+
+			booking_id_list = esql.executeQueryAndReturnResult(booking_id_query);
+			esql.executeQueryAndPrintResult(booking_id_query);
+
+			if (booking_id.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		Integer booking_id = Integer.parseInt(booking_id_list.get(0).get(0)) + 1;
+		System.out.println(booking_id);
+		System.out.exit(0);
+		//Insert Booking into table
+
+		// try {
+		// 	String query = "INSERT INTO Bookings (booking_id, status, bdatetime, seats, sid) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
+		// 					 + "', '" + seat_no + "', '" + sid + "', '" + user_email + "');";
+		// 	esql.executeUpdate(query);
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+
+
+
+		// for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
+		// 	System.out.println(show_seat_ids.get(0).get(i));
+		// }
+
+
 
 
 		
