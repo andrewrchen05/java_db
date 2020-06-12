@@ -569,7 +569,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
+			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "'and bid IS NULL OR bid = null'" + "';";
 
 			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
 			esql.executeQueryAndPrintResult(query_max_num_seats);
@@ -581,7 +581,7 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		String item2 = date_time.get(0).get(0);
+		String item2 = max_seats.get(0).get(0);
 		Integer max_possible_seats = Integer.parseInt(item2);
 
 
@@ -611,7 +611,7 @@ public class Ticketmaster{
 		//The following code gives us a list of the ssids that we will need to update
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' limit + '" + seat_no + "';";
+			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "'and bid IS NULL OR bid = null'" + "' limit + '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
 			esql.executeQueryAndPrintResult(query_show_seat_id);
