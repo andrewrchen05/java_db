@@ -442,7 +442,7 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		System.out.println(ID);
+		System.out.println(id);
 
 		System.exit(0);
 
