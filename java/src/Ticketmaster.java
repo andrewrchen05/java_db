@@ -966,20 +966,20 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
-		for (int i = 0; i < pending_bookings_list.size(); ++i) {
+		for (int i = 0; i < canceled_pending_list.size(); ++i) {
 			//System.out.println("Iteration" + i);
 			try {
-				String query = "UPDATE Showseats SET bid =null WHERE bid = '" + Integer.parseInt(pending_bookings_list.get(i).get(0)) + "';";
+				String query = "UPDATE Showseats SET bid =null WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
 		}
 
-		for (int i = 0; i < pending_bookings_list.size(); ++i) {
+		for (int i = 0; i < canceled_pending_list.size(); ++i) {
 			//System.out.println("Iteration" + i);
 			try {
-				String query = "DELETE from bookings WHERE bid = '" + Integer.parseInt(pending_bookings_list.get(i).get(0)) + "';";
+				String query = "DELETE from bookings WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
