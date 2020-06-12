@@ -616,7 +616,7 @@ public class Ticketmaster{
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
 		
-		String status = "pending"; //START CREATING THE BOOKING
+		String status = "Pending"; //START CREATING THE BOOKING
 
 		ZonedDateTime zone_date_time = ZonedDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ssx");
@@ -955,7 +955,7 @@ public class Ticketmaster{
 		} while(true);
 		
 		try {
-			String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+			String query = "SELECT T.tname\nFROM Theaters T, Plays P\nWHERE T.tid = P.tid\nAND P.sid = '" + sid + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -989,7 +989,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT S.sid FROM Shows S WHERE S.sdate = " + sdate + " AND S.sttime = " + sttime + ";";
+			String query = "SELECT *\nFROM Shows S\nWHERE S.sdate = '" + sdate + "'\nAND S.sttime = '" + sttime + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1006,7 +1006,7 @@ public class Ticketmaster{
 		String status = "Pending";
 		
 		try {
-			String query = "SELECT U.lname, U.fname FROM Users U, Bookings B WHERE B.email =  U.email AND B.status = " + status + ";";
+			String query = "SELECT lname, fname\nFROM Users U, Bookings B\nWHERE B.email =  U.email\nAND B.status = '" + status + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1017,68 +1017,68 @@ public class Ticketmaster{
 		//
 	}
 
-	public static void ListBookingInfoForUser(Ticketmaster esql){//14
+	// public static void ListBookingInfoForUser(Ticketmaster esql){//14
 
 
 
 
 		
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String movie_title = "SELECT sid\n FROM Shows\n WHERE sttime = '" + time + "';";
-		// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	// try {
+	// 	// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 	// 	String movie_title = "SELECT sid\n FROM Shows\n WHERE sttime = '" + time + "';";
+	// 	// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+	// 	// 		System.out.println("This  does not exist"); 
+	// 	// 	}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	// } catch(Exception e) {
+	// 	// 	System.out.println(e.getMessage());
+	// 	// }
 
 
-		// String titanic = "Titanic";
+	// 	// String titanic = "Titanic";
 
-		// List<List<String>> vector = new ArrayList<List<String>>();
+	// 	// List<List<String>> vector = new ArrayList<List<String>>();
 		
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-		// 	vector = esql.executeQueryAndReturnResult(query);
-		// 	if (vector.size() == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	// try {
+	// 	// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 	// 	String query = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+	// 	// 	vector = esql.executeQueryAndReturnResult(query);
+	// 	// 	if (vector.size() == 0) {
+	// 	// 		System.out.println("This  does not exist"); 
+	// 	// 	}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	// } catch(Exception e) {
+	// 	// 	System.out.println(e.getMessage());
+	// 	// }
 
-		// String item = vector.get(0).get(0);
-		// System.out.println(item);
+	// 	// String item = vector.get(0).get(0);
+	// 	// System.out.println(item);
 
-		// Integer sid = Integer.parseInt(item);
+	// 	// Integer sid = Integer.parseInt(item);
 
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query = "SELECT sid, count(ssid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
-		// 	if (esql.executeQueryAndPrintResult(query) == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+	// 	// try {
+	// 	// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 	// 	String query = "SELECT sid, count(ssid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
+	// 	// 	if (esql.executeQueryAndPrintResult(query) == 0) {
+	// 	// 		System.out.println("This does not exist"); 
+	// 	// 	}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	// } catch(Exception e) {
+	// 	// 	System.out.println(e.getMessage());
+	// 	// }
 
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	List<List<String>> vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
-		// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+	// 	// try {
+	// 	// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+	// 	// 	List<List<String>> vector = "SELECT s.sid\n FROM Movies m, Shows S\n WHERE m.mvid=s.mvid and m.title = '" + titanic + "';";
+	// 	// 	if (esql.executeQueryAndPrintResult(movie_title) == 0) {
+	// 	// 		System.out.println("This  does not exist"); 
+	// 	// 	}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+	// 	// } catch(Exception e) {
+	// 	// 	System.out.println(e.getMessage());
+	// 	// }
 		
-	}
+	// }
 
 	public static void ListBookingInfoForUser(Ticketmaster esql){//14
 		//get email and password for User
@@ -1117,7 +1117,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {// find if user and password match (if it exists in database)
-			String queryFindUser = "SELECT U.email FROM Users U WHERE U.email = " + email + " AND U.pwd = " + pwd + ";";
+			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "'\nAND U.pwd = '" + pwd + "';";
 			if((esql.executeQuery(queryFindUser)) == 0)  {
 				System.out.println("Invalid email or password!");
 			}
@@ -1125,11 +1125,11 @@ public class Ticketmaster{
 			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
 			//all Bookings of a Given User
 				try {
-					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno "
-											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P "
-											+ "WHERE U.email = B.email " //connects User and Booking
-											+ "AND S.mvid = M.mvid " // Shows to movies
-											+ "AND S.sid = P.sid "  //Shows to plays
+					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno\n"
+											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P\n"
+											+ "WHERE U.email = B.email\n" //connects User and Booking
+											+ "AND S.mvid = M.mvid\n" // Shows to movies
+											+ "AND S.sid = P.sid\n"  //Shows to plays
 											+ "AND P.tid = T.tid;"; //plays to theater
 											//idk if that is right ^ missing some links but i think it is ok bc of the relationships
 											// and there are no way to link them i.e. cinema seating and theater but if theres a theater theres a seat
