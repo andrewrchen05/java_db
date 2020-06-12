@@ -421,6 +421,14 @@ public class Ticketmaster{
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
+		String status = "pending";
+
+		Integer ID = esql.getCurrSeqVal("bid");
+
+		System.out.println(ID);
+
+		System.exit(0);
+
 		String user_email;
 		do{
 			System.out.println("Email: ");
@@ -445,7 +453,7 @@ public class Ticketmaster{
 			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
 			if (esql.executeQuery(query_user) == 0) {
 				System.out.println("This user does not exist");
-				AddUser(esql); 
+				AddUser(esql); // no user found, so add user
 			}
 			
 		} catch(Exception e) {
@@ -481,7 +489,10 @@ public class Ticketmaster{
 			esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
-				System.out.println("This does not exist"); 
+				System.out.println("This movie does not exist");
+				//AddMovieShowingToTheater(esql); 
+				
+				//movie doesn't exist, so add movie or choose another
 			}
 			
 		} catch(Exception e) {
@@ -512,6 +523,7 @@ public class Ticketmaster{
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
+				exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
@@ -536,138 +548,71 @@ public class Ticketmaster{
 
 		String item1 = date_time.get(0).get(0);
 		Integer sid = Integer.parseInt(item1);
-		// System.out.println(sid);
 
-		// for (int i = 0; i < 3; ++i) {
-		// 	System.out.println(sid);
-		// }
+		//NOW WE KNOW THE SHOW ID THE CUSTOMER WANTS TO ATTEND
 
+		List<List<String>> max_seats = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
-		//do {
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
 
-		// 	try {
-		// 		//String day; //DAY
-		// 		do{
-		// 			System.out.println("Which day does the customer want to attend the show?: ");
-		// 			try {
-		// 				date = in.readLine();
-		// 				if(date.length() > 10 || date.length() == 0)  {
-		// 					throw new RuntimeException("Date cannot be more than 10 characters.");
-		// 				}
-		// 				else {
-		// 					break;
-		// 				}
+			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
+			esql.executeQueryAndPrintResult(query_max_num_seats);
 
-		// 			} catch(Exception e) {
-		// 				System.out.println("Your input is invalid!");
-		// 				continue;
-		// 			}
-		// 		} while(true);
-
-		// 		//String time; //TIME
-		// 		do{
-		// 			System.out.println("What time does the customer want to attend the show?: ");
-		// 			try {
-		// 				time = in.readLine();
-		// 				if(time.length() > 8 || time.length() == 0)  {
-		// 					throw new RuntimeException("Time cannot be more than 8 characters");
-		// 				}
-		// 				else {
-		// 					break;
-		// 				}
-
-		// 			} catch(Exception e) {
-		// 				System.out.println("Your input is invalid!");
-		// 				continue;
-		// 			}
-		// 		} while(true);
-
-		// 	} catch (Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-
-		// } while (true);
-
-		// List<List<String>> day_list = new ArrayList<List<String>>();
-
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
-		// 	movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-		// 	if (movie_id_list.size() == 0) {
-		// 		System.out.println("This  does not exist"); 
-		// 	}
+			if (date_time.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		String item2 = date_time.get(0).get(0);
+		Integer max_possible_seats = Integer.parseInt(item2);
 
-		// String item = movie_id_list.get(0).get(0);
-		// Integer mvid = Integer.parseInt(item);
-		// System.out.println(mvid);
 
-		// String time; //TIME
-		// do{
-		// 	System.out.println("What time does the customer want to attend the show?: ");
-		// 	try {
-		// 		time = in.readLine();
-		// 		if(time.length() > 8 || time.length() == 0)  {
-		// 			throw new RuntimeException("Time cannot be more than 8 characters");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
+		Integer seat_no; 
+		do{
+			try {
+				System.out.println("How many seats does the customer want to book?: ");
+				seat_no = in.readLine();
+				if(seat_no > max_possible_seats || seat_no <= 0)  {
+					throw new RuntimeException("There are only " + max_possible_seats + " seats available for this show.");
+				}
+				else {
+					break;
+				}
 
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				exit(0); // we are not implementing sophisticated error checking
+				continue;
+			}
+		} while(true);
 
-		// do {
-		// 	try {
-		// 		String day; //DAY
-		// 		do{
-		// 			System.out.println("Which day does the customer want to attend the show?: ");
-		// 			try {
-		// 				day = in.readLine();
-		// 				if(day.length() > 10 || day.length() == 0)  {
-		// 					throw new RuntimeException("Date cannot be more than 10 characters.");
-		// 				}
-		// 				else {
-		// 					break;
-		// 				}
+		// NOW WE KNOW HOW MANY SEATS TO BOOK FOR THE CUSTOMER
 
-		// 			} catch(Exception e) {
-		// 				System.out.println("Your input is invalid!");
-		// 				continue;
-		// 			}
-		// 		} while(true);
+		List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
-		// 		String time; //TIME
-		// 		do{
-		// 			System.out.println("What time does the customer want to attend the show?: ");
-		// 			try {
-		// 				time = in.readLine();
-		// 				if(time.length() > 8 || time.length() == 0)  {
-		// 					throw new RuntimeException("Time cannot be more than 8 characters");
-		// 				}
-		// 				else {
-		// 					break;
-		// 				}
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_show_seat_id = "SELECT COUNT(sid)\n FROM Showseats\n GROUP BY sid HAVING sid = '" + sid + "';";
 
-		// 			} catch(Exception e) {
-		// 				System.out.println("Your input is invalid!");
-		// 				continue;
-		// 			}
-		// 		} while(true);
+			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
+			esql.executeQueryAndPrintResult(query_show_seat_id);
 
-		// 	} catch (Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+			if (date_time.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		String item2 = date_time.get(0).get(0);
+		Integer max_possible_seats = Integer.parseInt(item2);
+		
+
+
 		
 	}
 	
