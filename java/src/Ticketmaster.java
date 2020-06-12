@@ -627,6 +627,8 @@ public class Ticketmaster{
 
 		System.out.println("Size: " + show_seat_ids.get(0).size());
 		System.out.println("Size1: " + show_seat_ids.size());
+		System.out.println("Index 0: " + show_seat_ids.get(0));
+		System.out.println("Index 1: " + show_seat_ids.get(1));
 
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
