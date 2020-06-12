@@ -930,7 +930,35 @@ public class Ticketmaster{
 	}
 	
 	public static void RemovePayment(Ticketmaster esql){//6
+		//get pid to identify payment to be cancelled
+		int pid;
+		do{
+			System.out.println("Enter payment id: ");
+			try {
+				pid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
+		//find booking to change status to cancelled
+		String status = "Cancelled";
+		try {
+			String queryUpdate = "UPDATE B SET B.status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
+			esql.executeUpdate(queryUpdate);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		//remove payment
+		try {
+			String queryDelete = "DELETE FROM Payments WHERE pid = '" + pid + "';";
+			esql.executeUpdate(queryDelete);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ClearCancelledBookings(Ticketmaster esql){//7
