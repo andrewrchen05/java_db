@@ -612,7 +612,7 @@ public class Ticketmaster{
 		//The following code gives us a list of the ssids that we will need to update
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "'and bid IS NULL OR bid = null'" + "' limit + '" + seat_no + "';";
+			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
 			esql.executeQueryAndPrintResult(query_show_seat_id);
