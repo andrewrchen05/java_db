@@ -653,7 +653,7 @@ public class Ticketmaster{
 
 		Integer booking_id = Integer.parseInt(booking_id_list.get(0).get(0)) + 1;
 		System.out.println(booking_id);
-		System.out.exit(0);
+		System.exit(0);
 		//Insert Booking into table
 
 		// try {
