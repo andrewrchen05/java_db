@@ -966,7 +966,46 @@ public class Ticketmaster{
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
-		
+		// //treat as if no one booked anything
+		// //get cinema and date
+		// String cname;
+		// String sdate;
+		// do{
+		// 	System.out.println("Select Cinema you would like to remove a show from: ");
+		// 	try {
+		// 		cname = in.readLine();
+		// 		if(cname.length() > 64 || cname.length() == 0)  {
+		// 			throw new ArithmeticException("Cinema name cannot be empty and be 64 characters or less.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// do{
+		// 	System.out.println("Enter date of show(M/D/YYYY): ");
+		// 	try {
+		// 		sdate = in.readLine();
+		// 		break;
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// //remove show seating
+		// try {
+		// 	String queryDelete = "DELETE S1 FROM 
+		// 	esql.executeUpdate(queryDelete);
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+		// //remove show
+
 	}
 	
 	public static void ListTheatersPlayingShow(Ticketmaster esql){//9
