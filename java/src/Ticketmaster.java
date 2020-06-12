@@ -421,7 +421,6 @@ public class Ticketmaster{
 	}
 	
 	public static void AddBooking(Ticketmaster esql){//2
-		//String status = "pending";
 
 
 		// do{
@@ -628,6 +627,12 @@ public class Ticketmaster{
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
 		
+		String status = "pending"; //START CREATING THE BOOKING
+
+		LocalDate date = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss-xx");
+		String text = date.format(formatter);
+		LocalDate parsedDate = LocalDate.parse(text, formatter);
 
 
 		
