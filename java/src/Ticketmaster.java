@@ -424,22 +424,22 @@ public class Ticketmaster{
 		//String status = "pending";
 
 
-		do{
-			//System.out.println("Email: ");
-			try {
-				id = esql.getCurrSeqVal("bid");
-				if(id < 0 || id > 2000000000)  {
-					throw new ArithmeticException("Something went wrong with getCurrSeqVal");
-				}
-				else {
-					break;
-				}
+		// do{
+		// 	//System.out.println("Email: ");
+		// 	try {
+		// 		id = esql.getCurrSeqVal("bid");
+		// 		if(id < 0 || id > 2000000000)  {
+		// 			throw new ArithmeticException("Something went wrong with getCurrSeqVal");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
 
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-			}
-		} while(true);
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
 
 		String user_email;
 		do{
@@ -622,7 +622,7 @@ public class Ticketmaster{
 		}
 
 		for (int i = 0; i < show_seat_ids.get(0).size(); ++i) {
-			System.out.println(show_seats_ids.get(0).get(i));
+			System.out.println(show_seat_ids.get(0).get(i));
 		}
 
 		// String item3 = show_seat_ids.get(0).get(0);
