@@ -425,24 +425,6 @@ public class Ticketmaster{
 	
 	public static void AddBooking(Ticketmaster esql){//2
 
-
-		// do{
-		// 	//System.out.println("Email: ");
-		// 	try {
-		// 		id = esql.getCurrSeqVal("bid");
-		// 		if(id < 0 || id > 2000000000)  {
-		// 			throw new ArithmeticException("Something went wrong with getCurrSeqVal");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
-
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
-
 		String user_email;
 		do{
 			System.out.println("Email: ");
@@ -684,16 +666,6 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
-
-		// try {
-		// 	for (int i = 0; i < show_seat_ids.size(); ++i) {
-		// 		System.out.println("Iteration: " + i);
-		// 		String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + show_seat_ids.get(i) + "';";
-		// 		esql.executeUpdate(query);
-		// 	}
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
 
 
 	}
