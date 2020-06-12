@@ -584,52 +584,52 @@ public class Ticketmaster{
 		}
 		String item2 = max_seats.get(0).get(0);
 		Integer max_possible_seats = Integer.parseInt(item2);
-		System.out.println("Max Possible seats " + max_possible_seats);
+		//System.out.println("Max Possible seats " + max_possible_seats);
 
 
-		// Integer seat_no; 
-		// do{
-		// 	try {
-		// 		System.out.println("How many seats does the customer want to book?: ");
-		// 		seat_no = Integer.parseInt(in.readLine());
-		// 		if(seat_no > max_possible_seats || seat_no <= 0)  {
-		// 			throw new RuntimeException("There are only " + max_possible_seats + " seats available for this show.");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
+		Integer seat_no; 
+		do{
+			try {
+				System.out.println("How many seats does the customer want to book?: ");
+				seat_no = Integer.parseInt(in.readLine());
+				if(seat_no > max_possible_seats || seat_no <= 0)  {
+					throw new RuntimeException("There are only " + max_possible_seats + " seats available for this show.");
+				}
+				else {
+					break;
+				}
 
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		System.exit(0); // we are not implementing sophisticated error checking
-		// 		continue;
-		// 	}
-		// } while(true);
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				System.exit(0); // we are not implementing sophisticated error checking
+				continue;
+			}
+		} while(true);
 
-		// // NOW WE KNOW HOW MANY SEATS TO BOOK FOR THE CUSTOMER
+		// NOW WE KNOW HOW MANY SEATS TO BOOK FOR THE CUSTOMER
 
-		// List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+		List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
-		// //The following code gives us a list of the ssids that we will need to update
-		// try {
-		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-		// 	String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
+		//The following code gives us a list of the ssids that we will need to update
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
-		// 	show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-		// 	esql.executeQueryAndPrintResult(query_show_seat_id);
+			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
+			esql.executeQueryAndPrintResult(query_show_seat_id);
 
-		// 	if (show_seat_ids.size() == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+			if (show_seat_ids.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
-		// System.out.println("Size: " + show_seat_ids.get(0).size());
-		// System.out.println("Size1: " + show_seat_ids.size());
-		// System.out.println("Index 0: " + show_seat_ids.get(0));
-		// System.out.println("Index 1: " + show_seat_ids.get(1));
+		System.out.println("Size: " + show_seat_ids.get(0).size());
+		System.out.println("Size1: " + show_seat_ids.size());
+		System.out.println("Index 0: " + show_seat_ids.get(0).get(0));
+		System.out.println("Index 1: " + show_seat_ids.get(0).get(1));
 
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
