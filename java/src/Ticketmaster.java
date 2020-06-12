@@ -657,7 +657,7 @@ public class Ticketmaster{
 		//Insert Booking into table
 
 		try {
-			String query = "INSERT INTO Bookings (booking_id, status, bdatetime, seats, sid) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
+			String query = "INSERT INTO Bookings (bid, status, bdatetime, seats, sid, email) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
 							 + "', '" + seat_no + "', '" + sid + "', '" + user_email + "');";
 			esql.executeUpdate(query);
 		} catch(Exception e) {
