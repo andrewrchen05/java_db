@@ -569,7 +569,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;'";
+			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
 
 			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
 			esql.executeQueryAndPrintResult(query_max_num_seats);
