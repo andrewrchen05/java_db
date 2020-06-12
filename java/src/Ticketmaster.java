@@ -423,7 +423,24 @@ public class Ticketmaster{
 	public static void AddBooking(Ticketmaster esql){//2
 		String status = "pending";
 
-		Integer ID = esql.getCurrSeqVal("bid");
+		Integer id = -1;
+
+		do{
+			//System.out.println("Email: ");
+			try {
+				id = esql.getCurrSeqVal("bid");
+				if(id < 0 || id > 2000000000)  {
+					throw new ArithmeticException("Something went wrong with getCurrSeqVal");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 
 		System.out.println(ID);
 
