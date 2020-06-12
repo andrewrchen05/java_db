@@ -657,8 +657,7 @@ public class Ticketmaster{
 		//Update the bid for the seats that the customer has reserved
 		for (int i = 0; i < show_seat_ids.size(); ++i) {
 			//show_seat_ids.get(0).get(i)
-			System.out.println("Iteration" + i);
-
+			//System.out.println("Iteration" + i);
 			try {
 				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(show_seat_ids.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
@@ -922,14 +921,41 @@ public class Ticketmaster{
 	}
 	
 	public static void CancelPendingBookings(Ticketmaster esql){//4
-		List<List<String>> pending_bookings_list = new ArrayList<List<String>>();
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_pending_bid = "SELECT bid\n FROM bookings \nWHERE status = 'pending'";
+			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'pending'";
 
 			pending_bookings_list = esql.executeQueryAndReturnResult(query_pending_bid);
 			esql.executeQueryAndPrintResult(query_pending_bid);
+
+			if (pending_bookings_list.size() == 0) {
+				System.out.println("There are no pending bookings."); 
+				return;
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
+		
+	}
+	
+	public static void RemovePayment(Ticketmaster esql){//6
+		
+	}
+	
+	public static void ClearCancelledBookings(Ticketmaster esql){//7
+		List<List<String>> canceled_pending_list = new ArrayList<List<String>>();
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'canceled'";
+
+			pending_bookings_list = esql.executeQueryAndReturnResult(query_canceled_bid);
+			esql.executeQueryAndPrintResult(query_canceled_bid);
 
 			if (pending_bookings_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
@@ -959,18 +985,6 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
-	}
-	
-	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
-		
-	}
-	
-	public static void RemovePayment(Ticketmaster esql){//6
-		
-	}
-	
-	public static void ClearCancelledBookings(Ticketmaster esql){//7
-		
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
