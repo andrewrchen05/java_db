@@ -926,8 +926,8 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'pending'";
 
-			pending_bookings_list = esql.executeQueryAndReturnResult(query_pending_bid);
-			esql.executeQueryAndPrintResult(query_pending_bid);
+			esql.executeQuery(query_pending_bid);
+			//esql.executeQueryAndPrintResult(query_pending_bid);
 
 			if (pending_bookings_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
@@ -954,10 +954,10 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'canceled'";
 
-			pending_bookings_list = esql.executeQueryAndReturnResult(query_canceled_bid);
+			canceled_pending_list = esql.executeQueryAndReturnResult(query_canceled_bid);
 			esql.executeQueryAndPrintResult(query_canceled_bid);
 
-			if (pending_bookings_list.size() == 0) {
+			if (canceled_pending_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
 				return;
 			}
