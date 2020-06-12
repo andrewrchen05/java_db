@@ -1009,35 +1009,53 @@ public class Ticketmaster{
 	
 	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
 
-		String date = "";
-		String time = "";
-		
+		// String date = "";
+		// String time = "";
+
+		String email;
+
 		do{
+			System.out.println("Email: ");
 			try {
-				System.out.println("Which day does the customer want to attend the show?: ");
-				date = in.readLine();
-				System.out.println("What time does the customer want to attend the show?: ");
-				time = in.readLine();
-				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
-					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				email = in.readLine();
+				if(email.length() > 64 || email.length() == 0)  {
+					throw new ArithmeticException("Email cannot be empty and has to be less 64 characters or less.");
 				}
 				else {
 					break;
 				}
-
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
+		
+		// do{
+		// 	try {
+		// 		System.out.println("Which day does the customer want to attend the show?: ");
+		// 		date = in.readLine();
+		// 		System.out.println("What time does the customer want to attend the show?: ");
+		// 		time = in.readLine();
+		// 		if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
+		// 			throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
 
-		try {
-			String query = "SELECT S.sid, M.title FROM Shows S Movies M WHERE S.sdate = " + date + " AND S.sttime = " + ttime + " AND M.mvid = S.mvid;";
-			esql.executeQueryAndPrintResult(query);
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		System.exit(0); // we are not implementing sophisticated error checking
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// try {
+		// 	String query = "SELECT S.sid, M.title FROM Shows S Movies M WHERE S.sdate = " + date + " AND S.sttime = " + ttime + " AND M.mvid = S.mvid;";
+		// 	esql.executeQueryAndPrintResult(query);
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
 
 	}
 
