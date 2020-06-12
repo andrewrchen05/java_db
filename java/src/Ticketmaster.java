@@ -657,8 +657,7 @@ public class Ticketmaster{
 		//Update the bid for the seats that the customer has reserved
 		for (int i = 0; i < show_seat_ids.size(); ++i) {
 			//show_seat_ids.get(0).get(i)
-			System.out.println("Iteration" + i);
-
+			//System.out.println("Iteration" + i);
 			try {
 				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(show_seat_ids.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
@@ -922,7 +921,17 @@ public class Ticketmaster{
 	}
 	
 	public static void CancelPendingBookings(Ticketmaster esql){//4
-		
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'pending'";
+
+			esql.executeQuery(query_pending_bid);
+			//esql.executeQueryAndPrintResult(query_pending_bid);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
@@ -934,7 +943,43 @@ public class Ticketmaster{
 	}
 	
 	public static void ClearCancelledBookings(Ticketmaster esql){//7
-		
+		List<List<String>> canceled_pending_list = new ArrayList<List<String>>();
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'cancelled'";
+
+			canceled_pending_list = esql.executeQueryAndReturnResult(query_canceled_bid);
+			esql.executeQueryAndPrintResult(query_canceled_bid);
+
+			if (canceled_pending_list.size() == 0) {
+				System.out.println("There are no pending bookings."); 
+				return;
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		for (int i = 0; i < canceled_pending_list.size(); ++i) {
+			//System.out.println("Iteration" + i);
+			try {
+				String query = "UPDATE Showseats SET bid =null WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
+				esql.executeUpdate(query);
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+		for (int i = 0; i < canceled_pending_list.size(); ++i) {
+			//System.out.println("Iteration" + i);
+			try {
+				String query = "DELETE from bookings WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
+				esql.executeUpdate(query);
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
