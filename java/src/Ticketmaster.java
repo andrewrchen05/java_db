@@ -928,11 +928,6 @@ public class Ticketmaster{
 
 			esql.executeQuery(query_pending_bid);
 			//esql.executeQueryAndPrintResult(query_pending_bid);
-
-			if (pending_bookings_list.size() == 0) {
-				System.out.println("There are no pending bookings."); 
-				return;
-			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
