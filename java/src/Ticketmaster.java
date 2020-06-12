@@ -1033,7 +1033,8 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT S.sid, M.title FROM Shows S, Movies M WHERE S.sdate = " + date + " AND S.sttime = " + time + " AND M.mvid = S.mvid;";
+			String query = "SELECT S.sid, M.title FROM Shows S, Movies M WHERE S.sdate = '" + date + "' AND S.sttime = '" + time + "' AND M.mvid = S.mvid;";
+			//String query = "UPDATE Showseats SET bid =null WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
