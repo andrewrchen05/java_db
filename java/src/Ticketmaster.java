@@ -616,7 +616,7 @@ public class Ticketmaster{
 		// String item3 = show_seat_ids.get(0).get(0);
 		// Integer max_possible_seats = Integer.parseInt(item3);
 		
-		String status = "pending"; //START CREATING THE BOOKING
+		String status = "Pending"; //START CREATING THE BOOKING
 
 		ZonedDateTime zone_date_time = ZonedDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ssx");
@@ -939,7 +939,35 @@ public class Ticketmaster{
 	}
 	
 	public static void RemovePayment(Ticketmaster esql){//6
+		//get pid to identify payment to be cancelled
+		int pid;
+		do{
+			System.out.println("Enter payment id: ");
+			try {
+				pid = Integer.parseInt(in.readLine());
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
+		//find booking to change status to cancelled
+		String status = "Cancelled";
+		try {
+			String queryUpdate = "UPDATE B SET B.status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
+			esql.executeUpdate(queryUpdate);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		//remove payment
+		try {
+			String queryDelete = "DELETE FROM Payments WHERE pid = '" + pid + "';";
+			esql.executeUpdate(queryDelete);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ClearCancelledBookings(Ticketmaster esql){//7
@@ -983,7 +1011,46 @@ public class Ticketmaster{
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
-		
+		// //treat as if no one booked anything
+		// //get cinema and date
+		// String cname;
+		// String sdate;
+		// do{
+		// 	System.out.println("Select Cinema you would like to remove a show from: ");
+		// 	try {
+		// 		cname = in.readLine();
+		// 		if(cname.length() > 64 || cname.length() == 0)  {
+		// 			throw new ArithmeticException("Cinema name cannot be empty and be 64 characters or less.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// do{
+		// 	System.out.println("Enter date of show(M/D/YYYY): ");
+		// 	try {
+		// 		sdate = in.readLine();
+		// 		break;
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
+
+		// //remove show seating
+		// try {
+		// 	String queryDelete = "DELETE S1 FROM 
+		// 	esql.executeUpdate(queryDelete);
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+		// //remove show
+
 	}
 	
 	public static void ListTheatersPlayingShow(Ticketmaster esql){//9
@@ -1000,7 +1067,7 @@ public class Ticketmaster{
 		} while(true);
 		
 		try {
-			String query = "SELECT T.tname FROM Theaters T, Plays P WHERE T.tid = P.tid AND P.sid = " + sid + ";";
+			String query = "SELECT T.tname\nFROM Theaters T, Plays P\nWHERE T.tid = P.tid\nAND P.sid = '" + sid + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1051,7 +1118,7 @@ public class Ticketmaster{
 		String status = "Pending";
 		
 		try {
-			String query = "SELECT U.lname, U.fname FROM Users U, Bookings B WHERE B.email =  U.email AND B.status = " + status + ";";
+			String query = "SELECT U.fname, U.lname, U.email\nFROM Users U, Bookings B\nWHERE B.email =  U.email\nAND B.status = '" + status + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1059,7 +1126,7 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
-		//
+		
 	}
 
 	public static void ListBookingInfoForUser(Ticketmaster esql){//14
@@ -1099,7 +1166,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {// find if user and password match (if it exists in database)
-			String queryFindUser = "SELECT U.email FROM Users U WHERE U.email = " + email + " AND U.pwd = " + pwd + ";";
+			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "'\nAND U.pwd = '" + pwd + "';";
 			if((esql.executeQuery(queryFindUser)) == 0)  {
 				System.out.println("Invalid email or password!");
 			}
@@ -1107,11 +1174,11 @@ public class Ticketmaster{
 			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
 			//all Bookings of a Given User
 				try {
-					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno "
-											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P "
-											+ "WHERE U.email = B.email " //connects User and Booking
-											+ "AND S.mvid = M.mvid " // Shows to movies
-											+ "AND S.sid = P.sid "  //Shows to plays
+					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno\n"
+											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P\n"
+											+ "WHERE U.email = B.email\n" //connects User and Booking
+											+ "AND S.mvid = M.mvid\n" // Shows to movies
+											+ "AND S.sid = P.sid\n"  //Shows to plays
 											+ "AND P.tid = T.tid;"; //plays to theater
 											//idk if that is right ^ missing some links but i think it is ok bc of the relationships
 											// and there are no way to link them i.e. cinema seating and theater but if theres a theater theres a seat
