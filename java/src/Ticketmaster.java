@@ -1034,7 +1034,7 @@ public class Ticketmaster{
 		String status = "Pending";
 		
 		try {
-			String query = "SELECT lname, fname\nFROM Users U, Bookings B\nWHERE B.email =  U.email\nAND B.status = '" + status + "';";
+			String query = "SELECT U.fname, U.lname, U.email\nFROM Users U, Bookings B\nWHERE B.email =  U.email\nAND B.status = '" + status + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1042,7 +1042,7 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
-		//
+		
 	}
 
 	// public static void ListBookingInfoForUser(Ticketmaster esql){//14
