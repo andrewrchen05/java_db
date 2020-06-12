@@ -614,7 +614,7 @@ public class Ticketmaster{
 			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' limit + '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-			esql.executeQueryAndPrintResult(query_show_seat_id);
+			//esql.executeQueryAndPrintResult(query_show_seat_id);
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -653,16 +653,16 @@ public class Ticketmaster{
 
 		Integer booking_id = Integer.parseInt(booking_id_list.get(0).get(0)) + 1;
 		System.out.println(booking_id);
-		System.exit(0);
+		//System.exit(0);
 		//Insert Booking into table
 
-		// try {
-		// 	String query = "INSERT INTO Bookings (booking_id, status, bdatetime, seats, sid) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
-		// 					 + "', '" + seat_no + "', '" + sid + "', '" + user_email + "');";
-		// 	esql.executeUpdate(query);
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		try {
+			String query = "INSERT INTO Bookings (booking_id, status, bdatetime, seats, sid) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
+							 + "', '" + seat_no + "', '" + sid + "', '" + user_email + "');";
+			esql.executeUpdate(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 
 
