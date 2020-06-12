@@ -575,7 +575,7 @@ public class Ticketmaster{
 		do{
 			try {
 				System.out.println("How many seats does the customer want to book?: ");
-				seat_no = parseInt(in.readLine());
+				seat_no = Integer.parseInt(in.readLine());
 				if(seat_no > max_possible_seats || seat_no <= 0)  {
 					throw new RuntimeException("There are only " + max_possible_seats + " seats available for this show.");
 				}
