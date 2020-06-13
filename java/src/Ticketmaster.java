@@ -446,10 +446,28 @@ public class Ticketmaster{
 			}
 		} while(true);
 
+		String password;
+		do{
+			System.out.println("Enter the password for " + user_email + ": ");
+			try {
+				password = in.readLine();
+				if(password.length() > 64 || password.length() == 0)  {
+					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
 		//insert into table
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
+			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "'and pwd = '" + password + "';";
 			if (esql.executeQuery(query_user) == 0) {
 				System.out.println("This user does not exist");
 				AddUser(esql); // no user found, so add user
@@ -459,7 +477,6 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		//USER EXISTS, SO WE CAN CREATE A BOOKING
-
 
 		String movie; // MOVIE
 		do{
