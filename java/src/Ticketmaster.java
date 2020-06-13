@@ -1350,7 +1350,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT M.title, M.duration, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
+			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
 							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
