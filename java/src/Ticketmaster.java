@@ -1005,10 +1005,11 @@ public class Ticketmaster{
 			String query_sum_price = "SELECT sum(PRICE) from Showseats WHERE bid = '" + booking_id + "';";
 
 			price_query = esql.executeQueryAndReturnResult(query_sum_price);
-			esql.executeQueryAndPrintResult(query_sum_price);
+			//esql.executeQueryAndPrintResult(query_sum_price);
 
 			if (price_query.size() == 0) {
 				System.out.println("This does not exist"); 
+				return;
 			}
 			
 		} catch(Exception e) {
