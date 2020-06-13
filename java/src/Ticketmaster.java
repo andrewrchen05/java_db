@@ -1269,7 +1269,7 @@ public class Ticketmaster{
 		try {
 			String query = "SELECT title FROM Movies WHERE genre = 'Love' and rdate >= '2010-12-31'";
 			if (esql.executeQueryAndPrintResult(query) == 0) {
-				System.out.println("There are no such movie listings.")
+				System.out.println("There are no such movie listings.");
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
