@@ -1080,7 +1080,7 @@ public class Ticketmaster{
 			//show_seat_ids.get(0).get(i)
 			//System.out.println("Iteration" + i);
 			try {
-				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(new_ssid_list.get(0).get(i)) + "';";
+				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(new_ssid_list.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
