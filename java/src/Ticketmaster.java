@@ -1266,7 +1266,12 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
-		
+		try {
+			String query = "SELECT title FROM Movies WHERE genre = 'Love' and rdate >= '2010-12-31'";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void ListUsersWithPendingBooking(Ticketmaster esql){//12
