@@ -1016,7 +1016,6 @@ public class Ticketmaster{
 		}
 
 		Integer total_booking_price = Integer.parseInt(price_query.get(0).get(0));
-
 		//This is the total price of the booking in question
 
 		List<List<String>> new_price_list = new ArrayList<List<String>>(); 
@@ -1038,26 +1037,22 @@ public class Ticketmaster{
 
 		Integer new_price_total = Integer.parseInt(new_price_list.get(0).get(0));
 
-		if (new_price_total != total_booking_price) {
-			System.out.println("The customer's seats are the cheapest possible for this show.")
+		if (new_price_total != total_booking_price) { //No changes are made if we execute this statement
+			System.out.println("The customer's seats are the cheapest possible for this show.");
 			return;
 		}
-
+		//We delete the current bookings
 		//Now we have to actually input the ids.
-
-
-
 
 		//String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
 
-		List<List<String>> new_ssid_query = new ArrayList<List<String>>(); 
+		List<List<String>> new_ssid_list = new ArrayList<List<String>>(); 
 
 		try {
-			String query_sum_price = "SELECT ssid, price from Showseats WHERE sid = '" + booking_id + "';";
-
-			price_query = esql.executeQueryAndReturnResult(query_sum_price);
-			esql.executeQueryAndPrintResult(query_sum_price);
+			String query_new_ssid = "SELECT ssid from Showseats WHERE sid = '" + sid + "'and bid IS NULL OR bid=null limit 2;'";
+			new_ssid_list = esql.executeQueryAndReturnResult(query_new_ssid);
+			esql.executeQueryAndPrintResult(query_new_ssid);
 
 			if (price_query.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -1066,6 +1061,29 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		//We have the new ssids stored. Now we can set the old ssids to bid=null
+
+		try {
+			String query_pending_bid = "UPDATE Showseats\n SET bid = null WHERE bid = '" + booking_id + "';";
+
+			esql.executeQuery(query_pending_bid);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		for (int i = 0; i < new_ssid_list.size(); ++i) {
+			//show_seat_ids.get(0).get(i)
+			//System.out.println("Iteration" + i);
+			try {
+				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(new_ssid_list.get(i).get(0)) + "';";
+				esql.executeUpdate(query);
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
 
 
 	}
