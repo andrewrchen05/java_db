@@ -1286,7 +1286,74 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
+		String movie; // MOVIE
+		do{
+			System.out.println("Which movie does the customer want to watch?: ");
+			try {
+				movie = in.readLine();
+				if(movie.length() > 128 || movie.length() == 0)  {
+					throw new RuntimeException("Movie cannot be empty and has to be less than 128 characters.");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 		
+		List<List<String>> movie_id_list = new ArrayList<List<String>>();
+
+		try {
+			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
+			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
+			esql.executeQueryAndPrintResult(query_mvid);
+
+			if (movie_id_list.size() == 0) {
+				System.out.println("This movie does not exist");
+				System.exit(0);
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		String item = movie_id_list.get(0).get(0);
+		Integer mvid = Integer.parseInt(item);
+		
+		
+		String lowest_date = "";
+		String highest_date = "";
+		
+		do{
+			try {
+				System.out.println("Starting from what date would the customer like to view the show?: ");
+				date = in.readLine();
+				System.out.println("What is the latest date the customer would like to view the show?: ");
+				time = in.readLine();
+				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
+					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				System.exit(0); // we are not implementing sophisticated error checking
+				continue;
+			}
+		} while(true);
+
+		try {
+			String query = "SELECT M.title, M.duration, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
+							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "';";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void ListBookingInfoForUser(Ticketmaster esql){//14
