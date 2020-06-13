@@ -976,64 +976,96 @@ public class Ticketmaster{
 
 		//See how many seats
 		Integer total_seats_booked = Integer.parseInt(booking_list.get(0).get(0));
-		System.out.println("This booking has " + total_seats_booked + " seats booked.");
+		System.out.println("This booking contains " + total_seats_booked + " seats");
 
 		Integer show_id = Integer.parseInt(booking_list.get(0).get(1));
 		System.out.println("The show ID is: " + show_id);
 
+		Integer change_seat_no;
+		do{
+			System.out.println("How many seats would the customer like to change?: ");
+			try {
+				change_seat_no = Integer.parseInt(in.readLine());
+				if(change_seat_no > total_seats_booked || change_seat_no == 0)  {
+					throw new ArithmeticException("You cannot change more seats than you have booked.");
+				}
+				else {
+					break;
+				}
 
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+		
+		List<List<String>> price_query = new ArrayList<List<String>>(); 
 
-		// Integer change_seat_no;
-		// do{
-		// 	System.out.println("How many seats would the customer like to change?: ");
-		// 	try {
-		// 		change_seat_no = Integer.parseInt(in.readLine());
-		// 		if(change_seat_no > total_seats_booked || change_seat_no == 0)  {
-		// 			throw new ArithmeticException("You cannot change more seats than you have booked.");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
+		try {
+			String query_sum_price = "SELECT sum(PRICE) from Showseats WHERE bid = '" + booking_id + "';";
 
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+			price_query = esql.executeQueryAndReturnResult(query_sum_price);
+			esql.executeQueryAndPrintResult(query_sum_price);
 
-		// List<List<String>> price_query = new ArrayList<List<String>>(); 
-
-		// try {
-		// 	String query_sum_price = "SELECT sum(PRICE) from Showseats WHERE bid = '" + booking_id + "';";
-
-		// 	price_query = esql.executeQueryAndReturnResult(query_sum_price);
-		// 	esql.executeQueryAndPrintResult(query_sum_price);
-
-		// 	if (price_query.size() == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+			if (price_query.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
-		// Integer total_booking_price = Integer.parseInt(price_query.get(0).get(0));
+		Integer total_booking_price = Integer.parseInt(price_query.get(0).get(0));
 
-		// List<List<String>> new_ssid_query = new ArrayList<List<String>>(); 
+		//This is the total price of the booking in question
 
-		// try {
-		// 	String query_sum_price = "SELECT ssid, price from Showseats WHERE sid = '" + booking_id + "';";
+		List<List<String>> new_price_list = new ArrayList<List<String>>(); 
 
-		// 	price_query = esql.executeQueryAndReturnResult(query_sum_price);
-		// 	esql.executeQueryAndPrintResult(query_sum_price);
+		try {
+			String query_new_prices = "SELECT sum(price) FROM (SELECT price FROM Showseats WHERE sid = '" + show_id + 
+									"' and bid IS NULL OR bid=null LIMIT '" + change_seat_no + "' ) ALIAS;'";
 
-		// 	if (price_query.size() == 0) {
-		// 		System.out.println("This does not exist"); 
-		// 	}
+			new_price_list = esql.executeQueryAndReturnResult(query_new_prices);
+			esql.executeQueryAndPrintResult(query_new_prices);
+
+			if (new_price_list.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		Integer new_price_total = Integer.parseInt(new_price_list.get(0).get(0));
+
+		if (new_price_total != total_booking_price) {
+			System.out.println("The customer's seats are the cheapest possible for this show.")
+			return;
+		}
+
+		//Now we have to actually input the ids.
+
+
+
+
+		//String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
+
+
+		List<List<String>> new_ssid_query = new ArrayList<List<String>>(); 
+
+		try {
+			String query_sum_price = "SELECT ssid, price from Showseats WHERE sid = '" + booking_id + "';";
+
+			price_query = esql.executeQueryAndReturnResult(query_sum_price);
+			esql.executeQueryAndPrintResult(query_sum_price);
+
+			if (price_query.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 
 	}
