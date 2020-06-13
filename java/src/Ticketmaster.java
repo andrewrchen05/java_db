@@ -547,6 +547,7 @@ public class Ticketmaster{
 
 		//NOW WE KNOW THE SHOW ID THE CUSTOMER WANTS TO ATTEND
 
+
 		List<List<String>> max_seats = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
 		try {
@@ -607,14 +608,6 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-		// System.out.println("Size: " + show_seat_ids.get(0).size());
-		// System.out.println("Size1: " + show_seat_ids.size());
-		// System.out.println("Index 0: " + show_seat_ids.get(0).get(0));
-		// System.out.println("Index 1: " + show_seat_ids.get(1).get(0));
-
-		// String item3 = show_seat_ids.get(0).get(0);
-		// Integer max_possible_seats = Integer.parseInt(item3);
 		
 		String status = "pending"; //START CREATING THE BOOKING
 
@@ -932,10 +925,70 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.prinln("PENDING BOOKINGS SET TO CANCELLED");
 	}
 	
 	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
-		
+
+		//First, get the booking id.
+		//Second, get the price of the booking (SELECT sum(price) FROM Showseats WHERE bid=501)
+		//Third, use limit of number of seats of booking to find available ssid. Add up the price to see if same.
+		//Make sure to save in a list the ssid.
+
+		//If no seats available or seats more expensive, exit the function
+		//If the above requirements are satisfied delete the bid from the linked showseats (Don't delete number of seats)
+		//Now, use the saved list to update the bid in showseats
+
+		Long booking_id;
+		do{
+			System.out.println("Enter booking ID: ");
+			try {
+				booking_id = Long.parseLong(in.readLine());
+				if(booking_id > 9999999999L || booking_id == 0)  {
+					throw new ArithmeticException("Booking ID cannot be more than 9 characters");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		//query if bid exists
+		try {
+			String query_booking = "SELECT email\n FROM Bookings\n WHERE bid = '" + booking_id + "';";
+			if (esql.executeQuery(query_bookin) == 0) {
+				System.out.println("This user does not exist");
+				return; 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		List<List<String>> price_query = new ArrayList<List<String>>(); 
+
+		try {
+			String query_sum_price = "SELECT sum(PRICE) from Showseats WHERE bid = '" + booking_id + "';";
+
+			price_query = esql.executeQueryAndReturnResult(query_sum_price);
+			esql.executeQueryAndPrintResult(query_sum_price);
+
+			if (price_query.size() == 0) {
+				System.out.println("This does not exist"); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		Integer total_booking_price = Integer.parseInt(price_query.get(0).get(0));
+		System.out.println(total_booking_price);
+
+
 	}
 	
 	public static void RemovePayment(Ticketmaster esql){//6
