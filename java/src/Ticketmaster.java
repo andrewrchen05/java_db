@@ -1074,6 +1074,8 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 
+		System.out.println("The size of the ssid_list is: " + new_ssid_list.size());
+
 		for (int i = 0; i < new_ssid_list.size(); ++i) {
 			//show_seat_ids.get(0).get(i)
 			//System.out.println("Iteration" + i);
