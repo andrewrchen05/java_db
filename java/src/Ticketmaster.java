@@ -1332,11 +1332,11 @@ public class Ticketmaster{
 		do{
 			try {
 				System.out.println("Starting from what date would the customer like to view the show?: ");
-				date = in.readLine();
+				lowest_date = in.readLine();
 				System.out.println("What is the latest date the customer would like to view the show?: ");
-				time = in.readLine();
-				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
-					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				highest_date = in.readLine();
+				if((lowest_date.length() > 10 || lowest_date.length() == 0) || (highest_date.length() > 10 || highest_date.length() == 0))  {
+					throw new RuntimeException("Dates cannot be more than 10 characters.");
 				}
 				else {
 					break;
