@@ -1023,7 +1023,7 @@ public class Ticketmaster{
 
 		try {
 			String query_new_prices = "SELECT sum(price) FROM (SELECT price FROM Showseats WHERE sid = '" + show_id + 
-									"' and bid IS NULL OR bid=null LIMIT " + change_seat_no + " ) ALIAS;'";
+									"' and bid IS NULL OR bid=null LIMIT " + change_seat_no + " ) ALIAS;";
 
 			new_price_list = esql.executeQueryAndReturnResult(query_new_prices);
 			esql.executeQueryAndPrintResult(query_new_prices);
