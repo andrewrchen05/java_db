@@ -7,6 +7,9 @@
  * University of California - Riverside
  *
  * Target DBMS: 'Postgres'
+ * 
+ * Andrew Chen 862039874
+ * 
  *
  */
 
@@ -485,8 +488,7 @@ public class Ticketmaster{
 			esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
-				System.out.println("This movie does not exist");
-				//AddMovieShowingToTheater(esql); 
+				System.out.println("This movie does not exist"); 
 				System.exit(0);
 				//movie doesn't exist, so add movie or choose another
 			}
@@ -497,6 +499,17 @@ public class Ticketmaster{
 
 		String item = movie_id_list.get(0).get(0);
 		Integer mvid = Integer.parseInt(item);
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_mvid_show_times = "SELECT *\n FROM Shows\n WHERE mvid = '" + mvid + "';";
+			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
+				System.out.println("Shows for this movie do not exist.");
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		//System.out.println(mvid);
 
 		//NOW WE HAVE THE MOVIE ID
