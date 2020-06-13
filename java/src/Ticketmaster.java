@@ -962,10 +962,10 @@ public class Ticketmaster{
 		try {
 			String query_seats_booked = "SELECT seats, sid\n FROM Bookings\n WHERE bid = '" + booking_id + "';";
 			
-			price_query = esql.executeQueryAndReturnResult(query_seats_booked);
+			booking_list = esql.executeQueryAndReturnResult(query_seats_booked);
 			esql.executeQueryAndPrintResult(query_seats_booked);
 
-			if (seats_booked_list.size() == 0) {
+			if (booking_list.size() == 0) {
 				System.out.println("There are no seats booked");
 				return; 
 			}
@@ -975,10 +975,10 @@ public class Ticketmaster{
 		}
 
 		//See how many seats
-		Integer total_seats_booked = Integer.parseInt(seats_booked_list.get(0).get(0));
+		Integer total_seats_booked = Integer.parseInt(booked_list.get(0).get(0));
 		System.out.println("This booking has " + total_seats_booked + " seats booked.");
 
-		Integer show_id = Integer.parseInt(seats_booked_list.get(1).get(0));
+		Integer show_id = Integer.parseInt(booked_list.get(1).get(0));
 		System.out.println("The show ID is: " + show_id);
 
 
