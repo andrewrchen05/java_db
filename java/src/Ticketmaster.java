@@ -925,7 +925,7 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.prinln("PENDING BOOKINGS SET TO CANCELLED");
+		System.out.println("PENDING BOOKINGS SET TO CANCELLED");
 	}
 	
 	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
@@ -960,7 +960,7 @@ public class Ticketmaster{
 		//query if bid exists
 		try {
 			String query_booking = "SELECT email\n FROM Bookings\n WHERE bid = '" + booking_id + "';";
-			if (esql.executeQuery(query_bookin) == 0) {
+			if (esql.executeQuery(query_booking) == 0) {
 				System.out.println("This user does not exist");
 				return; 
 			}
