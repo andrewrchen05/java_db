@@ -1065,31 +1065,31 @@ public class Ticketmaster{
 
 		//We have the new ssids stored. Now we can set the old ssids to bid=null
 
-		// try {
-		// 	String query_pending_bid = "UPDATE Showseats\n SET bid = null WHERE bid = '" + booking_id + "';";
+		try {
+			String query_pending_bid = "UPDATE Showseats\n SET bid = null WHERE bid = '" + booking_id + "';";
 
-		// 	esql.executeQuery(query_pending_bid);
+			esql.executeQuery(query_pending_bid);
 			
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		System.out.println("The size of the ssid_list is: " + new_ssid_list.size());
 
-		System.out.println(Integer.parseInt(new_ssid_list.get(0).get(0)));
-		System.out.println(Integer.parseInt(new_ssid_list.get(1).get(0)));
-		System.out.println(Integer.parseInt(new_ssid_list.get(2).get(0)));
+		// System.out.println(Integer.parseInt(new_ssid_list.get(0).get(0)));
+		// System.out.println(Integer.parseInt(new_ssid_list.get(1).get(0)));
+		// System.out.println(Integer.parseInt(new_ssid_list.get(2).get(0)));
 
-		// for (int i = 0; i < new_ssid_list.size(); ++i) {
-		// 	//show_seat_ids.get(0).get(i)
-		// 	//System.out.println("Iteration" + i);
-		// 	try {
-		// 		String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(new_ssid_list.get(i).get(0)) + "';";
-		// 		esql.executeUpdate(query);
-		// 	} catch(Exception e) {
-		// 		System.out.println(e.getMessage());
-		// 	}
-		// }
+		for (int i = 0; i < new_ssid_list.size(); ++i) {
+			//show_seat_ids.get(0).get(i)
+			//System.out.println("Iteration" + i);
+			try {
+				String query = "UPDATE Showseats SET bid = " + booking_id + " WHERE ssid=" + Integer.parseInt(new_ssid_list.get(i).get(0)) + ";";
+				esql.executeUpdate(query);
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
 
 
 
