@@ -427,7 +427,7 @@ public class Ticketmaster{
 
 		String user_email;
 		do{
-			System.out.println("Email: ");
+			System.out.println("Enter the customer's email: ");
 			try {
 				user_email = in.readLine();
 				if(user_email.length() > 64 || user_email.length() == 0)  {
@@ -917,7 +917,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'pending'";
+			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'Pending'";
 
 			esql.executeQuery(query_pending_bid);
 			//esql.executeQueryAndPrintResult(query_pending_bid);
@@ -1132,7 +1132,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'cancelled'";
+			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'Cancelled'";
 
 			canceled_pending_list = esql.executeQueryAndReturnResult(query_canceled_bid);
 			esql.executeQueryAndPrintResult(query_canceled_bid);
@@ -1266,7 +1266,6 @@ public class Ticketmaster{
 	}
 
 	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
-		
 		
 	}
 
