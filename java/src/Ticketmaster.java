@@ -1038,7 +1038,7 @@ public class Ticketmaster{
 
 		Integer new_price_total = Integer.parseInt(new_price_list.get(0).get(0));
 
-		if (new_price_total != total_booking_price) { //No changes are made if we execute this statement
+		if (new_price_total >= total_booking_price) { //No changes are made if we execute this statement
 			System.out.println("The customer's seats are the cheapest possible for this show.");
 			return;
 		}
