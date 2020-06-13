@@ -1051,7 +1051,7 @@ public class Ticketmaster{
 		List<List<String>> new_ssid_list = new ArrayList<List<String>>(); 
 
 		try {
-			String query_new_ssid = "SELECT ssid from Showseats WHERE sid = '" + show_id + "'and bid IS NULL OR bid=null limit 2;'";
+			String query_new_ssid = "SELECT ssid from Showseats WHERE sid = '" + show_id + "'and bid IS NULL OR bid=null LIMIT 2;";
 			new_ssid_list = esql.executeQueryAndReturnResult(query_new_ssid);
 			esql.executeQueryAndPrintResult(query_new_ssid);
 
