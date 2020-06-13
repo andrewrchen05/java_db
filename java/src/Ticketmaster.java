@@ -636,7 +636,7 @@ public class Ticketmaster{
 			String booking_id_query = "SELECT max(bid) from bookings";
 
 			booking_id_list = esql.executeQueryAndReturnResult(booking_id_query);
-			esql.executeQueryAndPrintResult(booking_id_query);
+			//esql.executeQueryAndPrintResult(booking_id_query);
 
 			if (booking_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -647,9 +647,7 @@ public class Ticketmaster{
 		}
 
 		Integer booking_id = Integer.parseInt(booking_id_list.get(0).get(0)) + 1;
-		System.out.println(booking_id);
-		//System.exit(0);
-		//Insert Booking into table
+		System.out.println("Here is the customer's booking ID: " + booking_id);
 
 		try {
 			String query = "INSERT INTO Bookings (bid, status, bdatetime, seats, sid, email) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
