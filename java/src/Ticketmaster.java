@@ -477,6 +477,7 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		//USER EXISTS, SO WE CAN CREATE A BOOKING
+		System.out.println("Welcome back, " + user_email + "!");
 
 		String movie; // MOVIE
 		do{
@@ -507,7 +508,6 @@ public class Ticketmaster{
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist"); 
 				System.exit(0);
-				//movie doesn't exist, so add movie or choose another
 			}
 			
 		} catch(Exception e) {
@@ -522,6 +522,7 @@ public class Ticketmaster{
 			String query_mvid_show_times = "SELECT *\n FROM Shows\n WHERE mvid = '" + mvid + "';";
 			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
 				System.out.println("Shows for this movie do not exist.");
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -566,6 +567,7 @@ public class Ticketmaster{
 
 			if (date_time.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -633,6 +635,7 @@ public class Ticketmaster{
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -657,6 +660,7 @@ public class Ticketmaster{
 
 			if (booking_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
