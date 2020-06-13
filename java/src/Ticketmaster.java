@@ -975,10 +975,10 @@ public class Ticketmaster{
 		}
 
 		//See how many seats
-		Integer total_seats_booked = Integer.parseInt(booked_list.get(0).get(0));
+		Integer total_seats_booked = Integer.parseInt(booking_list.get(0).get(0));
 		System.out.println("This booking has " + total_seats_booked + " seats booked.");
 
-		Integer show_id = Integer.parseInt(booked_list.get(1).get(0));
+		Integer show_id = Integer.parseInt(booking_list.get(1).get(0));
 		System.out.println("The show ID is: " + show_id);
 
 
