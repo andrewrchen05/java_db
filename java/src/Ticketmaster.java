@@ -746,7 +746,11 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
+<<<<<<< HEAD
 			System.out.println("Release Date(YYYY-DD-MM): ");
+=======
+			System.out.println("Release Date(YYYY-MM-DD): ");
+>>>>>>> 842b86c0c25cd087b04e5957ae3f522f96979d09
 			try {
 				rdate = in.readLine();
 				break;
@@ -904,7 +908,11 @@ public class Ticketmaster{
 		System.out.println("The sid is: " + sid);
 
 		do{
+<<<<<<< HEAD
 			System.out.println("Enter Show date (YYYY-MM-DD): ");
+=======
+			System.out.println("Show date(YYYY-MM-DD): ");
+>>>>>>> 842b86c0c25cd087b04e5957ae3f522f96979d09
 			try {
 				sdate = in.readLine();
 				break;
@@ -1220,45 +1228,51 @@ public class Ticketmaster{
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
-		// //treat as if no one booked anything
-		// //get cinema and date
-		// String cname;
-		// String sdate;
-		// do{
-		// 	System.out.println("Select Cinema you would like to remove a show from: ");
-		// 	try {
-		// 		cname = in.readLine();
-		// 		if(cname.length() > 64 || cname.length() == 0)  {
-		// 			throw new ArithmeticException("Cinema name cannot be empty and be 64 characters or less.");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+		//treat as if no one booked anything
+		//get cinema and date
+		String cname;
+		String sdate;
+		do{
+			System.out.println("Select Cinema you would like to remove a show from: ");
+			try {
+				cname = in.readLine();
+				if(cname.length() > 64 || cname.length() == 0)  {
+					throw new ArithmeticException("Cinema name cannot be empty and be 64 characters or less.");
+				}
+				else {
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 
-		// do{
-		// 	System.out.println("Enter date of show(M/D/YYYY): ");
-		// 	try {
-		// 		sdate = in.readLine();
-		// 		break;
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
+		do{
+			System.out.println("Enter date of show(YYYY-MM-DD): ");
+			try {
+				sdate = in.readLine();
+				break;
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
 
-		// //remove show seating
-		// try {
-		// 	String queryDelete = "DELETE S1 FROM 
-		// 	esql.executeUpdate(queryDelete);
-		// } catch(Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
-		// //remove show
+		//remove show seating
+		try {
+			String queryDeleteSeat = "DELETE S1 FROM ShowSeats S1 LEFT JOIN Shows S2 ON S1.sid = S2.sid WHERE S2.sdate = '" + sdate + "' AND S2.sid = (SELECT P.sid\nFROM Plays P, Theaters T, Cinemas C\nWHERE P.tid = T.tid\nAND T.cid = C.cid\nAND C.cname = '" + cname + "';);";
+			esql.executeUpdate(queryDeleteSeat);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//remove show
+		try {
+			String queryDeleteShow = "DELETE S FROM Shows S LEFT JOIN Plays P ON S.sid = P.sid WHERE S.sdate = '" + sdate + "'AND P.tid = (SELECT T.tid\nFROM Theaters T,Cinemas C\nWHERE T.cid = C.cid\nAND C.cname = '" + cname + "';);";
+			esql.executeUpdate(queryDeleteShow);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 	
@@ -1460,9 +1474,9 @@ public class Ticketmaster{
 											+ "WHERE U.email = B.email\n" //connects User and Booking
 											+ "AND S.mvid = M.mvid\n" // Shows to movies
 											+ "AND S.sid = P.sid\n"  //Shows to plays
-											+ "AND P.tid = T.tid;"; //plays to theater
-											//idk if that is right ^ missing some links but i think it is ok bc of the relationships
-											// and there are no way to link them i.e. cinema seating and theater but if theres a theater theres a seat
+											+ "AND P.tid = T.tid\n" //plays to theater
+											+ "AND B.sid = S.sid\n" //bookings to show
+											+ "AND C.tid = T.tid;"; //cinema to theater
 					esql.executeQueryAndPrintResult(queryBookingInfo);
 				} catch(Exception e) {
 					System.out.println(e.getMessage());
