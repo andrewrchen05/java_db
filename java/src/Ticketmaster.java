@@ -1334,7 +1334,7 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListUsersWithPendingBooking(Ticketmaster esql){//12
+	public static void ListUsersWithPendingBooking(Ticketmaster esql){//12 works!
 		String status = "Pending";
 		
 		try {
@@ -1416,7 +1416,7 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListBookingInfoForUser(Ticketmaster esql){//14
+	public static void ListBookingInfoForUser(Ticketmaster esql){//14 works!
 		//get email and password for User
 		String email;
 		String pwd;
@@ -1436,26 +1436,11 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		// do{
-		// 	System.out.println("Password: ");
-		// 	try {
-		// 		pwd = in.readLine();
-		// 		if(pwd.length() > 64 || pwd.length() == 0) {
-		// 			throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
-		// 		}
-		// 		else {
-		// 			break;
-		// 		}
-		// 	} catch(Exception e) {
-		// 		System.out.println("Your input is invalid!");
-		// 		continue;
-		// 	}
-		// } while(true);
 
 		try {// find if user and password match (if it exists in database)
 			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "';";
 			if((esql.executeQuery(queryFindUser)) == 0)  {
-				System.out.println("Invalid email or password!");
+				System.out.println("No user found!");
 			}
 			else {
 			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
