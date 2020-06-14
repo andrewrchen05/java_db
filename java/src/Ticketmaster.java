@@ -694,7 +694,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void AddMovieShowingToTheater(Ticketmaster esql){//3
+	public static void AddMovieShowingToTheater(Ticketmaster esql){//3 works
 		/*takes input of the information of a new movie (i.e. title, duration) and 
 		show(i.e. start time) and checks if the provided information is valid based 
 		on the constraints of the database schema.*/
@@ -959,6 +959,7 @@ public class Ticketmaster{
 		try {
 			String queryThree = "INSERT INTO Plays (sid, tid) VALUES ('" + sid + "', '" + tid + "');";
 			esql.executeUpdate(queryThree);
+			System.out.println("Successfully added!");
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -1323,7 +1324,7 @@ public class Ticketmaster{
 
 	}
 
-	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
+	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11 works
 		try {
 			String query = "SELECT title FROM Movies WHERE genre = 'Love' and rdate >= '2010-12-31'";
 			if (esql.executeQueryAndPrintResult(query) == 0) {
