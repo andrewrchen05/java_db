@@ -618,7 +618,9 @@ public class Ticketmaster{
 		try {// Shows the us
 			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
 											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid and T.tid = " + theater_id + ";";
-			if (max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
+			
+			max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times)
+			if (max_possible_seats == 0) {
 				System.out.println("Shows for this movie do not exist.");
 				return;
 			}
