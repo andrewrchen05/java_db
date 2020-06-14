@@ -1204,7 +1204,7 @@ public class Ticketmaster{
 		for (int i = 0; i < canceled_pending_list.size(); ++i) {
 			//System.out.println("Iteration" + i);
 			try {
-				String query = "UPDATE Showseats SET bid =null WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
+				String query = "UPDATE Showseats SET bid = null WHERE bid = '" + Integer.parseInt(canceled_pending_list.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
