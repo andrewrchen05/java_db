@@ -579,28 +579,57 @@ public class Ticketmaster{
 
 		//NOW WE KNOW THE SHOW ID THE CUSTOMER WANTS TO ATTEND
 
-
-		List<List<String>> max_seats = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
-
-		try {
-			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
-
-			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
-			//esql.executeQueryAndPrintResult(query_max_num_seats);
-
-			if (max_seats.size() == 0) {
-				System.out.println("There are no more seats for this show");
-				return; 
+		System.out.println("Here are the theaters that are showing the movie at this time.");
+		try {// Shows the us
+			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid;";
+			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
+				System.out.println("Shows for this movie do not exist.");
+				return;
 			}
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		String item2 = max_seats.get(0).get(0);
-		Integer max_possible_seats = Integer.parseInt(item2);
-		//System.out.println("Max Possible seats " + max_possible_seats);
 
+		System.out.println("Please enter the theater ID where you would like to watch " + movie + ".");
+
+		Long theater_id;
+		do{
+			System.out.println("Enter theater ID: ");
+			try {
+				theater_id = Long.parseLong(in.readLine());
+				if(theater_id > 9999999999L || theater_id == 0)  {
+					throw new ArithmeticException("Theater ID cannot be more than 9 characters");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		List<List<String>> csid_list = new ArrayList<List<String>>();
+
+		Integer max_possible_seats;
+		try {// Shows the us
+			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid and T.tid = " + theater_id + ";";
+			if (max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
+				System.out.println("Shows for this movie do not exist.");
+				return;
+			}
+
+			String query_csid = "SELECT SS.csid\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+								+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid and T.tid = " + theater_id + ";";
+			csid_list = esql.executeQueryAndReturnResult(query_csid);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		Integer seat_no; 
 		do{
@@ -625,21 +654,21 @@ public class Ticketmaster{
 		List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
 		//The following code gives us a list of the ssids that we will need to update
-		try {
-			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
+		// try {
+		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+		// 	String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and      and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
-			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-			//esql.executeQueryAndPrintResult(query_show_seat_id);
+		// 	show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
+		// 	//esql.executeQueryAndPrintResult(query_show_seat_id);
 
-			if (show_seat_ids.size() == 0) {
-				System.out.println("This does not exist"); 
-				return;
-			}
+		// 	if (show_seat_ids.size() == 0) {
+		// 		System.out.println("This does not exist"); 
+		// 		return;
+		// 	}
 			
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
 		
 		String status = "Pending"; //START CREATING THE BOOKING
 
@@ -679,11 +708,11 @@ public class Ticketmaster{
 
 
 		//Update the bid for the seats that the customer has reserved
-		for (int i = 0; i < show_seat_ids.size(); ++i) {
+		for (int i = 0; i < csid_list.size(); ++i) {
 			//show_seat_ids.get(0).get(i)
 			//System.out.println("Iteration" + i);
 			try {
-				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE ssid='" + Integer.parseInt(show_seat_ids.get(i).get(0)) + "';";
+				String query = "UPDATE Showseats SET bid = '" + booking_id + "' WHERE csid='" + Integer.parseInt(csid_list.get(i).get(0)) + "';";
 				esql.executeUpdate(query);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -692,6 +721,28 @@ public class Ticketmaster{
 		System.out.println("Booking successfully added!");
 
 	}
+
+	
+		// List<List<String>> max_seats = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		// try {
+		// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+		// 	String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
+
+		// 	max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
+		// 	//esql.executeQueryAndPrintResult(query_max_num_seats);
+
+		// 	if (max_seats.size() == 0) {
+		// 		System.out.println("There are no more seats for this show");
+		// 		return; 
+		// 	}
+			
+		// } catch(Exception e) {
+		// 	System.out.println(e.getMessage());
+		// }
+		// String item2 = max_seats.get(0).get(0);
+		// Integer max_possible_seats = Integer.parseInt(item2);
+		//System.out.println("Max Possible seats " + max_possible_seats);
 	
 	public static void AddMovieShowingToTheater(Ticketmaster esql){//3 works
 		/*takes input of the information of a new movie (i.e. title, duration) and 
