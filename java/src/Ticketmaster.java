@@ -885,7 +885,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String new_sid = "SELECT max(sid) from from shows";
+			String new_sid = "SELECT max(sid) FROM shows";
 
 			generate_sid = esql.executeQueryAndReturnResult(new_sid);
 			esql.executeQueryAndPrintResult(new_sid);
