@@ -1324,7 +1324,7 @@ public class Ticketmaster{
 		} while(true);
 		
 		try {
-			String query = "SELECT T.tid, T.tname\nFROM Theaters T, Plays P\nWHERE T.tid = P.tid\nAND P.sid = '" + sid + "';";
+			String query = "SELECT T.tid, T.tname, C.cname\nFROM Theaters T, Plays P, Cinemas C\nWHERE T.tid = P.tid\nAND P.sid = '" + sid + "'and T.cid=C.cid;";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
