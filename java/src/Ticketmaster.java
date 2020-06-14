@@ -1283,7 +1283,7 @@ public class Ticketmaster{
 		}
 
 		Integer sid = Integer.parseInt(sid_list.get(0).get(0));
-		System.out.println("Deleting Show with ID " + sid + ",");
+		System.out.println("Deleting Show with ID " + sid + "...");
 
 		//1. Get show ID
 		//2. Delete show ID from Showseats, then from Plays, then from Shows
