@@ -326,7 +326,7 @@ public class Ticketmaster{
 	
 	//Ticketmaster esql is a java object
 
-	public static void AddUser(Ticketmaster esql){//1
+	public static void AddUser(Ticketmaster esql){//1 works!
 		// insert tuple into database
 		
 		//gather data
@@ -424,9 +424,10 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		
+		System.out.println("User successfully created");
 	}
 	
-	public static void AddBooking(Ticketmaster esql){//2
+	public static void AddBooking(Ticketmaster esql){//2 works!
 
 		String user_email;
 		do{
@@ -631,7 +632,7 @@ public class Ticketmaster{
 			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-			esql.executeQueryAndPrintResult(query_show_seat_id);
+			//esql.executeQueryAndPrintResult(query_show_seat_id);
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -690,7 +691,7 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
-
+		System.out.println("Booking successfully added!");
 
 	}
 	
@@ -959,26 +960,26 @@ public class Ticketmaster{
 		try {
 			String queryThree = "INSERT INTO Plays (sid, tid) VALUES ('" + sid + "', '" + tid + "');";
 			esql.executeUpdate(queryThree);
-			System.out.println("Successfully added!");
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
+		
+		System.out.println("Movie showing successfully added!");
 	}
 	
-	public static void CancelPendingBookings(Ticketmaster esql){//4
+	public static void CancelPendingBookings(Ticketmaster esql){//4 works!
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'Pending'";
 
-			esql.executeQuery(query_pending_bid);
+			esql.executeUpdate(query_pending_bid);
 			//esql.executeQueryAndPrintResult(query_pending_bid);
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("PENDING BOOKINGS SET TO CANCELLED");
+		System.out.println("Pending bookings successfully cancelled!");
 	}
 	
 	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
