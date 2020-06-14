@@ -107,3 +107,54 @@
 		// } catch(Exception e) {
 		// 	System.out.println(e.getMessage());
 		// }
+
+
+
+
+
+
+
+
+// FROM OPTION 2
+
+// NOW WE KNOW HOW MANY SEATS TO BOOK FOR THE CUSTOMER
+
+//List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+//The following code gives us a list of the ssids that we will need to update
+// try {
+// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+// 	String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and      and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
+
+// 	show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
+// 	//esql.executeQueryAndPrintResult(query_show_seat_id);
+
+// 	if (show_seat_ids.size() == 0) {
+// 		System.out.println("This does not exist"); 
+// 		return;
+// 	}
+	
+// } catch(Exception e) {
+// 	System.out.println(e.getMessage());
+// }
+
+// List<List<String>> max_seats = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+// try {
+// 	//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+// 	String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
+
+// 	max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
+// 	//esql.executeQueryAndPrintResult(query_max_num_seats);
+
+// 	if (max_seats.size() == 0) {
+// 		System.out.println("There are no more seats for this show");
+// 		return; 
+// 	}
+	
+// } catch(Exception e) {
+// 	System.out.println(e.getMessage());
+// }
+// String item2 = max_seats.get(0).get(0);
+// Integer max_possible_seats = Integer.parseInt(item2);
+//System.out.println("Max Possible seats " + max_possible_seats);
