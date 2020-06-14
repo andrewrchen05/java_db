@@ -7,6 +7,9 @@
  * University of California - Riverside
  *
  * Target DBMS: 'Postgres'
+ * 
+ * Andrew Chen 862039874
+ * 
  *
  */
 
@@ -443,10 +446,28 @@ public class Ticketmaster{
 			}
 		} while(true);
 
+		String password;
+		do{
+			System.out.println("Enter the password for " + user_email + ": ");
+			try {
+				password = in.readLine();
+				if(password.length() > 64 || password.length() == 0)  {
+					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
 		//insert into table
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "';";
+			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + user_email + "'and pwd = '" + password + "';";
 			if (esql.executeQuery(query_user) == 0) {
 				System.out.println("This user does not exist");
 				AddUser(esql); // no user found, so add user
@@ -456,7 +477,7 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		//USER EXISTS, SO WE CAN CREATE A BOOKING
-
+		System.out.println("Welcome back, " + user_email + "!");
 
 		String movie; // MOVIE
 		do{
@@ -485,10 +506,8 @@ public class Ticketmaster{
 			esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
-				System.out.println("This movie does not exist");
-				//AddMovieShowingToTheater(esql); 
+				System.out.println("This movie does not exist"); 
 				System.exit(0);
-				//movie doesn't exist, so add movie or choose another
 			}
 			
 		} catch(Exception e) {
@@ -497,6 +516,18 @@ public class Ticketmaster{
 
 		String item = movie_id_list.get(0).get(0);
 		Integer mvid = Integer.parseInt(item);
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_mvid_show_times = "SELECT *\n FROM Shows\n WHERE mvid = '" + mvid + "';";
+			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
+				System.out.println("Shows for this movie do not exist.");
+				System.exit(0);
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		//System.out.println(mvid);
 
 		//NOW WE HAVE THE MOVIE ID
@@ -536,6 +567,7 @@ public class Ticketmaster{
 
 			if (date_time.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -603,6 +635,7 @@ public class Ticketmaster{
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -623,10 +656,11 @@ public class Ticketmaster{
 			String booking_id_query = "SELECT max(bid) from bookings";
 
 			booking_id_list = esql.executeQueryAndReturnResult(booking_id_query);
-			esql.executeQueryAndPrintResult(booking_id_query);
+			//esql.executeQueryAndPrintResult(booking_id_query);
 
 			if (booking_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -634,9 +668,7 @@ public class Ticketmaster{
 		}
 
 		Integer booking_id = Integer.parseInt(booking_id_list.get(0).get(0)) + 1;
-		System.out.println(booking_id);
-		//System.exit(0);
-		//Insert Booking into table
+		System.out.println("Here is the customer's booking ID: " + booking_id);
 
 		try {
 			String query = "INSERT INTO Bookings (bid, status, bdatetime, seats, sid, email) VALUES ('" + booking_id + "', '" + status + "', '" + zdt
@@ -667,25 +699,35 @@ public class Ticketmaster{
 		show(i.e. start time) and checks if the provided information is valid based 
 		on the constraints of the database schema.*/
 		//create movie
-		int mvid;
+		Integer mvid;
 		String title;
 		String rdate;
 		String country;
 		String description = "";
-		int duration = 0;
+		Integer duration = 0;
 		String lang = "";
 		String genre = "";
 
-		do{
-			System.out.println("Movie ID: ");
-			try {
-				mvid = Integer.parseInt(in.readLine());
-				break;
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
+		List<List<String>> generate_mvid = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String new_mvid = "SELECT max(mvid) from Movies";
+
+			generate_mvid = esql.executeQueryAndReturnResult(new_mvid);
+			//esql.executeQueryAndPrintResult(booking_id_query);
+
+			if (generate_mvid.size() == 0) {
+				System.out.println("Something went wrong."); 
+				System.exit(0);
 			}
-		} while(true);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		mvid = Integer.parseInt(generate_mvid.get(0).get(0)) + 1;
+		System.out.println("The new mvid is: " + mvid);
 
 		do{
 			System.out.println("Title of movie: ");
@@ -835,24 +877,34 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		//create show
-		int sid;
+		Integer sid;
 		String sdate;
 		String sttime;
 		String edtime;
 
-		do{
-			System.out.println("Show ID: ");
-			try {
-				sid = Integer.parseInt(in.readLine());
-				break;
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
+		List<List<String>> generate_sid = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String new_sid = "SELECT max(sid) FROM shows";
+
+			generate_sid = esql.executeQueryAndReturnResult(new_sid);
+			//esql.executeQueryAndPrintResult(new_sid);
+
+			if (generate_sid.size() == 0) {
+				System.out.println("Something went wrong."); 
+				System.exit(0);
 			}
-		} while(true);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		sid = Integer.parseInt(generate_sid.get(0).get(0)) + 1;
+		System.out.println("The sid is: " + sid);
 
 		do{
-			System.out.println("Show date(YYYY-MM-DD): ");
+			System.out.println("Enter Show date (YYYY-MM-DD): ");
 			try {
 				sdate = in.readLine();
 				break;
@@ -863,7 +915,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("Start time in military time(HH:MM): ");
+			System.out.println("Enter Show's start time(HH:MM:SS) ");
 			try {
 				sttime = in.readLine();
 				break;
@@ -874,7 +926,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("End time also in miltary time(HH:MM): ");
+			System.out.println("Enter Show's end time(HH:MM:SS) ");
 			try {
 				edtime = in.readLine();
 				break;
@@ -1274,7 +1326,9 @@ public class Ticketmaster{
 	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
 		try {
 			String query = "SELECT title FROM Movies WHERE genre = 'Love' and rdate >= '2010-12-31'";
-			esql.executeQueryAndPrintResult(query);
+			if (esql.executeQueryAndPrintResult(query) == 0) {
+				System.out.println("There are no such movie listings.");
+			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -1336,11 +1390,11 @@ public class Ticketmaster{
 		do{
 			try {
 				System.out.println("Starting from what date would the customer like to view the show?: ");
-				date = in.readLine();
+				lowest_date = in.readLine();
 				System.out.println("What is the latest date the customer would like to view the show?: ");
-				time = in.readLine();
-				if((date.length() > 10 || date.length() == 0) || (time.length() > 8 || time.length() == 0))  {
-					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				highest_date = in.readLine();
+				if((lowest_date.length() > 10 || lowest_date.length() == 0) || (highest_date.length() > 10 || highest_date.length() == 0))  {
+					throw new RuntimeException("Dates cannot be more than 10 characters.");
 				}
 				else {
 					break;
@@ -1354,7 +1408,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT M.title, M.duration, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
+			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
 							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "';";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
@@ -1367,7 +1421,7 @@ public class Ticketmaster{
 		String email;
 		String pwd;
 		do{
-			System.out.println("Email: ");
+			System.out.println("User email: ");
 			try {
 				email = in.readLine();
 				if(email.length() > 64 || email.length() == 0)  {
@@ -1382,24 +1436,24 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		do{
-			System.out.println("Password: ");
-			try {
-				pwd = in.readLine();
-				if(pwd.length() > 64 || pwd.length() == 0) {
-					throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
-				}
-				else {
-					break;
-				}
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
-			}
-		} while(true);
+		// do{
+		// 	System.out.println("Password: ");
+		// 	try {
+		// 		pwd = in.readLine();
+		// 		if(pwd.length() > 64 || pwd.length() == 0) {
+		// 			throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
+		// 		}
+		// 		else {
+		// 			break;
+		// 		}
+		// 	} catch(Exception e) {
+		// 		System.out.println("Your input is invalid!");
+		// 		continue;
+		// 	}
+		// } while(true);
 
 		try {// find if user and password match (if it exists in database)
-			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "'\nAND U.pwd = '" + pwd + "';";
+			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "';";
 			if((esql.executeQuery(queryFindUser)) == 0)  {
 				System.out.println("Invalid email or password!");
 			}
@@ -1414,6 +1468,7 @@ public class Ticketmaster{
 											+ "AND S.sid = P.sid\n"  //Shows to plays
 											+ "AND P.tid = T.tid\n" //plays to theater
 											+ "AND B.sid = S.sid\n" //bookings to show
+											+ "AND U.email = '" + email + "'\n" //user email 
 											+ "AND C.tid = T.tid;"; //cinema to theater
 					esql.executeQueryAndPrintResult(queryBookingInfo);
 				} catch(Exception e) {
