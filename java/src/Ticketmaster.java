@@ -1092,7 +1092,7 @@ public class Ticketmaster{
 
 		if (new_price_total >= total_booking_price) { //No changes are made if we execute this statement
 			System.out.println("The customer's seats are the cheapest possible for this show.");
-			System.exit(0);
+			return;
 		}
 		//We delete the current bookings
 		//Now we have to actually input the ids.
@@ -1357,7 +1357,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT M.title, S.sid, S.sdate, S.sttime, S.edtime FROM Shows S, Movies M WHERE S.sdate = '" + date + "' AND S.sttime = '" + time + "' AND M.mvid = S.mvid;";
+			String query = "SELECT S.sid, M.mvid, M.title, S.sdate, S.sttime, S.edtime FROM Shows S, Movies M WHERE S.sdate = '" + date + "' AND S.sttime = '" + time + "' AND M.mvid = S.mvid;";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
