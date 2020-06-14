@@ -566,7 +566,7 @@ public class Ticketmaster{
 			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (date_time.size() == 0) {
-				System.out.println("This does not exist"); 
+				System.out.println("A Show for this Date and Time does not exist."); 
 				System.exit(0);
 			}
 			
