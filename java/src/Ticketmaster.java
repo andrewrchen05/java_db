@@ -1229,7 +1229,7 @@ public class Ticketmaster{
 		//get cinema and date
 		Long cid;
 		do{
-			System.out.println("Select Cinema you would like to remove from by entering Cinema ID");
+			System.out.println("Select Cinema you would like to remove from by entering Cinema ID: ");
 			try {
 				cid = Long.parseLong(in.readLine());
 				if(cid > 9999999999L || cid <= 0)  {
@@ -1283,6 +1283,7 @@ public class Ticketmaster{
 		}
 
 		Integer sid = Integer.parseInt(sid_list.get(0).get(0));
+		System.out.println("Deleting Show with ID " + sid + ",");
 
 		//1. Get show ID
 		//2. Delete show ID from Showseats, then from Plays, then from Shows
