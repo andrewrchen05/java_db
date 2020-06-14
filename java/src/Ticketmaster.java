@@ -614,12 +614,12 @@ public class Ticketmaster{
 
 		List<List<String>> csid_list = new ArrayList<List<String>>();
 
-		Integer max_possible_seats;
+		Integer max_possible_seats = 0;
 		try {// Shows the us
 			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
 											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid and T.tid = " + theater_id + ";";
 			
-			max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times)
+			max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times);
 			if (max_possible_seats == 0) {
 				System.out.println("Shows for this movie do not exist.");
 				return;
@@ -653,7 +653,7 @@ public class Ticketmaster{
 
 		// NOW WE KNOW HOW MANY SEATS TO BOOK FOR THE CUSTOMER
 
-		List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+		//List<List<String>> show_seat_ids = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
 
 		//The following code gives us a list of the ssids that we will need to update
 		// try {
