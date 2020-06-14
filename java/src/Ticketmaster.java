@@ -1304,7 +1304,7 @@ public class Ticketmaster{
 		//Remove from Shows
 		try {
 			String query_delete_show = "DELETE FROM Shows WHERE sid = '" + sid + "';";
-			esql.executeUpdate(queryDeleteShow);
+			esql.executeUpdate(query_delete_show);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
