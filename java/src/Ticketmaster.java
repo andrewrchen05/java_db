@@ -1358,7 +1358,9 @@ public class Ticketmaster{
 
 		try {
 			String query = "SELECT S.sid, M.mvid, M.title, S.sdate, S.sttime, S.edtime FROM Shows S, Movies M WHERE S.sdate = '" + date + "' AND S.sttime = '" + time + "' AND M.mvid = S.mvid;";
-			esql.executeQueryAndPrintResult(query);
+			if (esql.executeQueryAndPrintResult(query) == 0) {
+				System.out.println("There are no shows playing on this time and date.")
+			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
