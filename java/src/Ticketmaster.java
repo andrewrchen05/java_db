@@ -581,7 +581,7 @@ public class Ticketmaster{
 
 		System.out.println("Here are the theaters that are showing the movie at this time.");
 		try {// Shows the us
-			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats S, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname\n FROM Showseats SS, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
 											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid;";
 			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
 				System.out.println("Shows for this movie do not exist.");
