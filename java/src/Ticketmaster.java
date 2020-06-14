@@ -1351,7 +1351,7 @@ public class Ticketmaster{
 				}
 
 			} catch(Exception e) {
-				System.out.println("Your input is invalid! Please try another date.");
+				System.out.println("Your input is invalid! Please try another date and time.");
 				continue;
 			}
 		} while(true);
