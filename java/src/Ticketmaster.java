@@ -1019,7 +1019,7 @@ public class Ticketmaster{
 
 			if (booking_list.size() == 0) {
 				System.out.println("There are no seats booked");
-				return; 
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -1061,7 +1061,7 @@ public class Ticketmaster{
 
 			if (price_query.size() == 0) {
 				System.out.println("This does not exist"); 
-				return;
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -1092,7 +1092,7 @@ public class Ticketmaster{
 
 		if (new_price_total >= total_booking_price) { //No changes are made if we execute this statement
 			System.out.println("The customer's seats are the cheapest possible for this show.");
-			return;
+			System.exit(0);
 		}
 		//We delete the current bookings
 		//Now we have to actually input the ids.
@@ -1191,7 +1191,7 @@ public class Ticketmaster{
 
 			if (canceled_pending_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
-				return;
+				System.exit(0);
 			}
 			
 		} catch(Exception e) {
@@ -1220,16 +1220,16 @@ public class Ticketmaster{
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
+
 		//treat as if no one booked anything
 		//get cinema and date
-		String cname;
-		String sdate;
+		Long cid;
 		do{
-			System.out.println("Select Cinema you would like to remove a show from: ");
+			System.out.println("Select Cinema you would like to remove from by entering Cinema ID");
 			try {
-				cname = in.readLine();
-				if(cname.length() > 64 || cname.length() == 0)  {
-					throw new ArithmeticException("Cinema name cannot be empty and be 64 characters or less.");
+				cid = Long.parseLong(in.readLine());
+				if(cid > 9999999999L || cid <= 0)  {
+					throw new ArithmeticException("Cinema ID cannot be more than 9999999999 or equal to zero.");
 				}
 				else {
 					break;
@@ -1240,27 +1240,66 @@ public class Ticketmaster{
 			}
 		} while(true);
 
+		String date = "";
+		
 		do{
-			System.out.println("Enter date of show(YYYY-MM-DD): ");
 			try {
-				sdate = in.readLine();
-				break;
+				System.out.println("Cancel all Shows at Cinema " + cid + " on this date: ");
+				date = in.readLine();
+				if((date.length() > 10 || date.length() == 0))  {
+					throw new RuntimeException("Date cannot be more than 10 characters and time cannot be more than 8 characters");
+				}
+				else {
+					break;
+				}
+
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
+				System.exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
 
-		//remove show seating
+		List<List<String>> sid_list = new ArrayList<List<String>>();
+
 		try {
-			String queryDeleteSeat = "DELETE S1 FROM ShowSeats S1 LEFT JOIN Shows S2 ON S1.sid = S2.sid WHERE S2.sdate = '" + sdate + "' AND S2.sid = (SELECT P.sid\nFROM Plays P, Theaters T, Cinemas C\nWHERE P.tid = T.tid\nAND T.cid = C.cid\nAND C.cname = '" + cname + "';);";
-			esql.executeUpdate(queryDeleteSeat);
+			String query_sid = "SELECT S.sid\n FROM Shows S, Theaters T, Plays P \nWHERE S.sdate = '" + 
+								date + "' and T.tid=P.tid and S.sid=P.sid and T.cid = '" + cid + "';"; 
+
+			sid_list = esql.executeQueryAndReturnResult(query_sid);
+			esql.executeQueryAndPrintResult(query_sid);
+
+			if (sid_list.size() == 0) {
+				System.out.println("There are no such Shows at Cinema " + cid + " on " + date + "."); 
+				System.exit(0);
+			}
+			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		//remove show
+
+		Integer sid = Integer.parseInt(sid_list.get(0).get(0));
+
+		//1. Get show ID
+		//2. Delete show ID from Showseats, then from Plays, then from Shows
+
+		//Remove show Showseats
 		try {
-			String queryDeleteShow = "DELETE S FROM Shows S LEFT JOIN Plays P ON S.sid = P.sid WHERE S.sdate = '" + sdate + "'AND P.tid = (SELECT T.tid\nFROM Theaters T,Cinemas C\nWHERE T.cid = C.cid\nAND C.cname = '" + cname + "';);";
+			String query_delete_showseat = "DELETE FROM Showseats WHERE sid = '" + sid + "';";
+			esql.executeUpdate(query_delete_showseat);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//Remove from Plays
+		try {
+			String query_delete_play = "DELETE FROM Plays WHERE sid = '" + sid + "';";
+			esql.executeUpdate(query_delete_play);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//Remove from Shows
+		try {
+			String query_delete_show = "DELETE FROM Shows WHERE sid = '" + sid + "';";
 			esql.executeUpdate(queryDeleteShow);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
