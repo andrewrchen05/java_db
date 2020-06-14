@@ -1019,7 +1019,7 @@ public class Ticketmaster{
 
 			if (booking_list.size() == 0) {
 				System.out.println("There are no seats booked");
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1060,8 +1060,8 @@ public class Ticketmaster{
 			//esql.executeQueryAndPrintResult(query_sum_price);
 
 			if (price_query.size() == 0) {
-				System.out.println("This does not exist"); 
-				System.exit(0);
+				System.out.println("This booking does not exist"); 
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1082,6 +1082,7 @@ public class Ticketmaster{
 
 			if (new_price_list.size() == 0) {
 				System.out.println("This does not exist"); 
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1109,6 +1110,7 @@ public class Ticketmaster{
 
 			if (price_query.size() == 0) {
 				System.out.println("This does not exist"); 
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1415,7 +1417,7 @@ public class Ticketmaster{
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist");
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1444,18 +1446,37 @@ public class Ticketmaster{
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
+				continue;
+			}
+		} while(true);
+
+		String cinema_name; // MOVIE
+		do{
+			System.out.println("Which cinema does the customer want to watch the show at?: ");
+			try {
+				cinema_name = in.readLine();
+				if(movie.length() > 128 || movie.length() == 0)  {
+					throw new RuntimeException("Cinema name cannot be empty and has to be less than 128 characters.");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
 				continue;
 			}
 		} while(true);
 
 		try {
-			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime FROM Shows S, Movies M WHERE M.mvid=S.mvid and S.mvid= '" 
-							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "';";
+			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime C.cname FROM Shows S, Movies M, Theaters T, Cinemas C, Plays P WHERE M.mvid=S.mvid and S.mvid= '" 
+							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "' and C.cname = '" + cinema_name + "' and P.tid=T.tid and S.sid=P.sid and T.cid=C.cid;";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+
 	}
 
 	public static void ListBookingInfoForUser(Ticketmaster esql){//14 works!
