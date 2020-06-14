@@ -563,7 +563,7 @@ public class Ticketmaster{
 								"'and sttime = '" + time + "';";
 
 			date_time = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (date_time.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -587,7 +587,7 @@ public class Ticketmaster{
 			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
 
 			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
-			esql.executeQueryAndPrintResult(query_max_num_seats);
+			//esql.executeQueryAndPrintResult(query_max_num_seats);
 
 			if (max_seats.size() == 0) {
 				System.out.println("There are no more seats for this show");
@@ -1148,7 +1148,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void RemovePayment(Ticketmaster esql){//6
+	public static void RemovePayment(Ticketmaster esql){//6 works!
 		//get pid to identify payment to be cancelled
 		int pid;
 		do{
@@ -1165,7 +1165,7 @@ public class Ticketmaster{
 		//find booking to change status to cancelled
 		String status = "Cancelled";
 		try {
-			String queryUpdate = "UPDATE B SET B.status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
+			String queryUpdate = "UPDATE Bookings SET status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
 			esql.executeUpdate(queryUpdate);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1269,7 +1269,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void ListTheatersPlayingShow(Ticketmaster esql){//9
+	public static void ListTheatersPlayingShow(Ticketmaster esql){//9 works
 		int sid;
 		do{
 			System.out.println("Enter show ID to find Theaters: ");
@@ -1290,7 +1290,7 @@ public class Ticketmaster{
 		}
 	}
 	
-	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
+	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10 works!
 
 		String date = "";
 		String time = "";
