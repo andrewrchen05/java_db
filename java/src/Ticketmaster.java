@@ -326,7 +326,7 @@ public class Ticketmaster{
 	
 	//Ticketmaster esql is a java object
 
-	public static void AddUser(Ticketmaster esql){//1
+	public static void AddUser(Ticketmaster esql){//1 works!
 		// insert tuple into database
 		
 		//gather data
@@ -424,9 +424,10 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		
+		System.out.println("User successfully created");
 	}
 	
-	public static void AddBooking(Ticketmaster esql){//2
+	public static void AddBooking(Ticketmaster esql){//2 works!
 
 		String user_email;
 		do{
@@ -503,7 +504,7 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist"); 
@@ -563,7 +564,7 @@ public class Ticketmaster{
 								"'and sttime = '" + time + "';";
 
 			date_time = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (date_time.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -587,7 +588,7 @@ public class Ticketmaster{
 			String query_max_num_seats = "SELECT COUNT(sid)\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null;";
 
 			max_seats = esql.executeQueryAndReturnResult(query_max_num_seats);
-			esql.executeQueryAndPrintResult(query_max_num_seats);
+			//esql.executeQueryAndPrintResult(query_max_num_seats);
 
 			if (max_seats.size() == 0) {
 				System.out.println("There are no more seats for this show");
@@ -631,7 +632,7 @@ public class Ticketmaster{
 			String query_show_seat_id = "SELECT ssid\n FROM Showseats\n WHERE sid = '" + sid + "' and bid IS NULL OR bid = null LIMIT '" + seat_no + "';";
 
 			show_seat_ids = esql.executeQueryAndReturnResult(query_show_seat_id);
-			esql.executeQueryAndPrintResult(query_show_seat_id);
+			//esql.executeQueryAndPrintResult(query_show_seat_id);
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
@@ -690,11 +691,11 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
-
+		System.out.println("Booking successfully added!");
 
 	}
 	
-	public static void AddMovieShowingToTheater(Ticketmaster esql){//3
+	public static void AddMovieShowingToTheater(Ticketmaster esql){//3 works
 		/*takes input of the information of a new movie (i.e. title, duration) and 
 		show(i.e. start time) and checks if the provided information is valid based 
 		on the constraints of the database schema.*/
@@ -746,7 +747,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("Release Date(YYYY-DD-MM): ");
+			System.out.println("Release Date(YYYY-MM-DD): ");
 			try {
 				rdate = in.readLine();
 				break;
@@ -962,22 +963,23 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
+		
+		System.out.println("Movie showing successfully added!");
 	}
 	
-	public static void CancelPendingBookings(Ticketmaster esql){//4
+	public static void CancelPendingBookings(Ticketmaster esql){//4 works!
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'Pending'";
 
-			esql.executeQuery(query_pending_bid);
+			esql.executeUpdate(query_pending_bid);
 			//esql.executeQueryAndPrintResult(query_pending_bid);
 			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("PENDING BOOKINGS SET TO CANCELLED");
+		System.out.println("Pending bookings successfully cancelled!");
 	}
 	
 	public static void ChangeSeatsForBooking(Ticketmaster esql) throws Exception{//5
@@ -1147,7 +1149,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void RemovePayment(Ticketmaster esql){//6
+	public static void RemovePayment(Ticketmaster esql){//6 works!
 		//get pid to identify payment to be cancelled
 		int pid;
 		do{
@@ -1164,7 +1166,7 @@ public class Ticketmaster{
 		//find booking to change status to cancelled
 		String status = "Cancelled";
 		try {
-			String queryUpdate = "UPDATE B SET B.status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
+			String queryUpdate = "UPDATE Bookings SET status = '" + status + "' WHERE bid = '" + pid + "';";
 			esql.executeUpdate(queryUpdate);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -1177,9 +1179,10 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println("Payment Successfully Removed!");
 	}
 	
-	public static void ClearCancelledBookings(Ticketmaster esql){//7
+	public static void ClearCancelledBookings(Ticketmaster esql){//7 works!
 		List<List<String>> canceled_pending_list = new ArrayList<List<String>>();
 
 		try {
@@ -1187,7 +1190,7 @@ public class Ticketmaster{
 			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'Cancelled'";
 
 			canceled_pending_list = esql.executeQueryAndReturnResult(query_canceled_bid);
-			esql.executeQueryAndPrintResult(query_canceled_bid);
+			//esql.executeQueryAndPrintResult(query_canceled_bid);
 
 			if (canceled_pending_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
@@ -1217,6 +1220,7 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
+		System.out.println("Cancelled Bookings Successfully removed!");
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
@@ -1307,7 +1311,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void ListTheatersPlayingShow(Ticketmaster esql){//9
+	public static void ListTheatersPlayingShow(Ticketmaster esql){//9 works
 		int sid;
 		do{
 			System.out.println("Enter show ID to find Theaters: ");
@@ -1328,7 +1332,7 @@ public class Ticketmaster{
 		}
 	}
 	
-	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10
+	public static void ListShowsStartingOnTimeAndDate(Ticketmaster esql){//10 works!
 
 		String date = "";
 		String time = "";
@@ -1362,7 +1366,7 @@ public class Ticketmaster{
 
 	}
 
-	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11
+	public static void ListMovieTitlesContainingLoveReleasedAfter2010(Ticketmaster esql){//11 works
 		try {
 			String query = "SELECT title FROM Movies WHERE genre = 'Love' and rdate >= '2010-12-31'";
 			if (esql.executeQueryAndPrintResult(query) == 0) {
@@ -1373,7 +1377,7 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListUsersWithPendingBooking(Ticketmaster esql){//12
+	public static void ListUsersWithPendingBooking(Ticketmaster esql){//12 works!
 		String status = "Pending";
 		
 		try {
@@ -1384,7 +1388,7 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
+	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13 works!
 		String movie; // MOVIE
 		do{
 			System.out.println("Which movie does the customer want to watch?: ");
@@ -1408,7 +1412,7 @@ public class Ticketmaster{
 		try {
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist");
@@ -1455,20 +1459,22 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListBookingInfoForUser(Ticketmaster esql){//14
+	public static void ListBookingInfoForUser(Ticketmaster esql){//14 works!
 		//get email and password for User
 		String email;
 		String pwd;
+
 		do{
-			System.out.println("Email: ");
+			System.out.println("Enter the customer's email: ");
 			try {
 				email = in.readLine();
 				if(email.length() > 64 || email.length() == 0)  {
-					throw new ArithmeticException("Email cannot be empty and has to be less 64 characters or less.");
+					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
 				}
 				else {
 					break;
 				}
+
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
 				continue;
@@ -1476,25 +1482,42 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("Password: ");
+			System.out.println("Enter the password for " + email + ": ");
 			try {
 				pwd = in.readLine();
-				if(pwd.length() > 64 || pwd.length() == 0) {
-					throw new ArithmeticException("Password cannot be empty and has to be 64 characters or less.");
+				if(pwd.length() > 64 || pwd.length() == 0)  {
+					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
 				}
 				else {
 					break;
 				}
+
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
 				continue;
 			}
 		} while(true);
 
+		//insert into table
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + email + "'and pwd = '" + pwd + "';";
+			if (esql.executeQuery(query_user) == 0) {
+				System.out.println("This user does not exist");
+				AddUser(esql); // no user found, so add user
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//USER EXISTS, SO WE CAN CREATE A BOOKING
+		System.out.println("Welcome back, " + email + "!");
+
+
 		try {// find if user and password match (if it exists in database)
-			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "'\nAND U.pwd = '" + pwd + "';";
+			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "';";
 			if((esql.executeQuery(queryFindUser)) == 0)  {
-				System.out.println("Invalid email or password!");
+				System.out.println("No user found!");
 			}
 			else {
 			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
@@ -1507,6 +1530,7 @@ public class Ticketmaster{
 											+ "AND S.sid = P.sid\n"  //Shows to plays
 											+ "AND P.tid = T.tid\n" //plays to theater
 											+ "AND B.sid = S.sid\n" //bookings to show
+											+ "AND U.email = '" + email + "'\n" //user email 
 											+ "AND C.tid = T.tid;"; //cinema to theater
 					esql.executeQueryAndPrintResult(queryBookingInfo);
 				} catch(Exception e) {
