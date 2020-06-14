@@ -1178,9 +1178,10 @@ public class Ticketmaster{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println("Payment Successfully Removed!");
 	}
 	
-	public static void ClearCancelledBookings(Ticketmaster esql){//7
+	public static void ClearCancelledBookings(Ticketmaster esql){//7 works!
 		List<List<String>> canceled_pending_list = new ArrayList<List<String>>();
 
 		try {
@@ -1188,7 +1189,7 @@ public class Ticketmaster{
 			String query_canceled_bid = "SELECT bid\n FROM bookings \nWHERE status = 'Cancelled'";
 
 			canceled_pending_list = esql.executeQueryAndReturnResult(query_canceled_bid);
-			esql.executeQueryAndPrintResult(query_canceled_bid);
+			//esql.executeQueryAndPrintResult(query_canceled_bid);
 
 			if (canceled_pending_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
@@ -1218,6 +1219,7 @@ public class Ticketmaster{
 				System.out.println(e.getMessage());
 			}
 		}
+		System.out.println("Cancelled Bookings Successfully removed!");
 	}
 	
 	public static void RemoveShowsOnDate(Ticketmaster esql){//8
