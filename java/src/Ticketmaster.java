@@ -746,11 +746,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-<<<<<<< HEAD
 			System.out.println("Release Date(YYYY-DD-MM): ");
-=======
-			System.out.println("Release Date(YYYY-MM-DD): ");
->>>>>>> 842b86c0c25cd087b04e5957ae3f522f96979d09
 			try {
 				rdate = in.readLine();
 				break;
@@ -908,11 +904,7 @@ public class Ticketmaster{
 		System.out.println("The sid is: " + sid);
 
 		do{
-<<<<<<< HEAD
 			System.out.println("Enter Show date (YYYY-MM-DD): ");
-=======
-			System.out.println("Show date(YYYY-MM-DD): ");
->>>>>>> 842b86c0c25cd087b04e5957ae3f522f96979d09
 			try {
 				sdate = in.readLine();
 				break;
