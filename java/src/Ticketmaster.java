@@ -727,6 +727,7 @@ public class Ticketmaster{
 		}
 
 		mvid = Integer.parseInt(generate_mvid.get(0).get(0)) + 1;
+		System.out.println("The new mvid is: " + mvid);
 
 		do{
 			System.out.println("Title of movie: ");
@@ -888,7 +889,7 @@ public class Ticketmaster{
 			String new_sid = "SELECT max(sid) FROM shows";
 
 			generate_sid = esql.executeQueryAndReturnResult(new_sid);
-			esql.executeQueryAndPrintResult(new_sid);
+			//esql.executeQueryAndPrintResult(new_sid);
 
 			if (generate_sid.size() == 0) {
 				System.out.println("Something went wrong."); 
@@ -900,6 +901,7 @@ public class Ticketmaster{
 		}
 
 		sid = Integer.parseInt(generate_sid.get(0).get(0)) + 1;
+		System.out.println("The sid is: " + sid);
 
 		do{
 			System.out.println("Enter Show date (YYYY-MM-DD): ");
