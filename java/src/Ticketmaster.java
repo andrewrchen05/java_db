@@ -1491,6 +1491,7 @@ public class Ticketmaster{
 		//get email and password for User
 		String email;
 		String pwd;
+		String answer;
 
 		do{
 			System.out.println("Enter the customer's email: ");
@@ -1533,33 +1534,38 @@ public class Ticketmaster{
 			if (esql.executeQuery(query_user) == 0) {
 				System.out.println("This user does not exist");
 				AddUser(esql); // no user found, so add user
-			}
-			
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-		//USER EXISTS, SO WE CAN CREATE A BOOKING
-		System.out.println("Welcome back, " + email + "!");
-
-
-		try {// find if user and password match (if it exists in database)
-			String queryFindUser = "SELECT U.email\nFROM Users U\nWHERE U.email = '" + email + "';";
-			if((esql.executeQuery(queryFindUser)) == 0)  {
-				System.out.println("No user found!");
-			}
-			else {
-			//Movie Title, Show Date & Start Time, Theater Name, and Cinema Seat Number for
-			//all Bookings of a Given User
+				System.out.println("Would you like to create a booking since you are a new user? (Y/N");
 				try {
-					String queryBookingInfo = "SELECT M.title, S.sdate, S.sttime, T.tname, C.sno\n"
-											+ "FROM Movies M, Shows S, Theaters T, CinemaSeats C, Users U, Bookings B, Plays P\n"
-											+ "WHERE U.email = B.email\n" //connects User and Booking
-											+ "AND S.mvid = M.mvid\n" // Shows to movies
-											+ "AND S.sid = P.sid\n"  //Shows to plays
-											+ "AND P.tid = T.tid\n" //plays to theater
-											+ "AND B.sid = S.sid\n" //bookings to show
-											+ "AND U.email = '" + email + "'\n" //user email 
-											+ "AND C.tid = T.tid;"; //cinema to theater
+					answer = in.readLine();
+					if(answer.equals("N")) {
+						System.out.println("There is no booking info available for this account.");
+						return;
+					}
+					else {
+						AddBooking(esql);
+					}
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+
+			List<List<String>> bookingsList = new ArrayList<List<String>>();
+			String query_booking = "SELECT bid\nFROM bookings\nWHERE email = '" + email + "';";
+			bookingsList = esql.executeQueryAndReturnResult(query_booking);
+			if (bookingsList.size() == 0) {
+				System.out.println("There are no pending bookings."); 
+				return;
+			}
+			for(int i = 0; i < bookingsList.size(); ++i)  {
+				try {
+					String queryBookingInfo = "SELECT M.title, S1.sdate, S1.sttime, T.tname, C.sno\n"
+											+ "FROM movies M, shows S1, bookings B, cinemaseats C, showseats S2, theaters T\n"
+											+ "WHERE M.mvid = S1.mvid\n"
+											+ "AND S1.sid = B.sid\n"
+											+ "AND B.email = '" + email + "'\n"
+											+ "AND B.bid = S2.bid\n"
+											+ "AND S2.csid = C.csid\n"
+											+ "AND T.tid = C.tid;";
 					esql.executeQueryAndPrintResult(queryBookingInfo);
 				} catch(Exception e) {
 					System.out.println(e.getMessage());
