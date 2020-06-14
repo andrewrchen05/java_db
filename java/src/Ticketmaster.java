@@ -503,7 +503,7 @@ public class Ticketmaster{
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist"); 
@@ -1421,21 +1421,55 @@ public class Ticketmaster{
 		//get email and password for User
 		String email;
 		String pwd;
+
 		do{
-			System.out.println("User email: ");
+			System.out.println("Enter the customer's email: ");
 			try {
 				email = in.readLine();
 				if(email.length() > 64 || email.length() == 0)  {
-					throw new ArithmeticException("Email cannot be empty and has to be less 64 characters or less.");
+					throw new ArithmeticException("Email cannot be empty and has to be less than 64 characters.");
 				}
 				else {
 					break;
 				}
+
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
 				continue;
 			}
 		} while(true);
+
+		do{
+			System.out.println("Enter the password for " + email + ": ");
+			try {
+				pwd = in.readLine();
+				if(pwd.length() > 64 || pwd.length() == 0)  {
+					throw new ArithmeticException("Password cannot be empty and has to be less than 64 characters.");
+				}
+				else {
+					break;
+				}
+
+			} catch(Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} while(true);
+
+		//insert into table
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String query_user = "SELECT *\n FROM Users\n WHERE email = '" + email + "'and pwd = '" + pwd + "';";
+			if (esql.executeQuery(query_user) == 0) {
+				System.out.println("This user does not exist");
+				AddUser(esql); // no user found, so add user
+			}
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//USER EXISTS, SO WE CAN CREATE A BOOKING
+		System.out.println("Welcome back, " + email + "!");
 
 
 		try {// find if user and password match (if it exists in database)
