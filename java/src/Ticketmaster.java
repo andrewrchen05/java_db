@@ -712,7 +712,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String new_mvid = "SELECT max(bid) from bookings";
+			String new_mvid = "SELECT max(mvid) from Movies";
 
 			generate_mvid = esql.executeQueryAndReturnResult(new_mvid);
 			//esql.executeQueryAndPrintResult(booking_id_query);
