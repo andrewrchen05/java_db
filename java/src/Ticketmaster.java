@@ -508,7 +508,7 @@ public class Ticketmaster{
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -523,7 +523,7 @@ public class Ticketmaster{
 			String query_mvid_show_times = "SELECT *\n FROM Shows\n WHERE mvid = '" + mvid + "';";
 			if (esql.executeQueryAndPrintResult(query_mvid_show_times) == 0) {
 				System.out.println("Shows for this movie do not exist.");
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -567,7 +567,7 @@ public class Ticketmaster{
 
 			if (date_time.size() == 0) {
 				System.out.println("A Show for this Date and Time does not exist."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -591,7 +591,7 @@ public class Ticketmaster{
 
 			if (max_seats.size() == 0) {
 				System.out.println("There are no more seats for this show");
-				System.exit(0); 
+				return; 
 			}
 			
 		} catch(Exception e) {
@@ -634,7 +634,7 @@ public class Ticketmaster{
 
 			if (show_seat_ids.size() == 0) {
 				System.out.println("This does not exist"); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -659,7 +659,7 @@ public class Ticketmaster{
 
 			if (booking_id_list.size() == 0) {
 				System.out.println("This does not exist"); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -718,7 +718,7 @@ public class Ticketmaster{
 
 			if (generate_mvid.size() == 0) {
 				System.out.println("Something went wrong."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -892,7 +892,7 @@ public class Ticketmaster{
 
 			if (generate_sid.size() == 0) {
 				System.out.println("Something went wrong."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1194,7 +1194,7 @@ public class Ticketmaster{
 
 			if (canceled_pending_list.size() == 0) {
 				System.out.println("There are no pending bookings."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1259,7 +1259,6 @@ public class Ticketmaster{
 
 			} catch(Exception e) {
 				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
 				continue;
 			}
 		} while(true);
@@ -1275,7 +1274,7 @@ public class Ticketmaster{
 
 			if (sid_list.size() == 0) {
 				System.out.println("There are no such Shows at Cinema " + cid + " on " + date + "."); 
-				System.exit(0);
+				return;
 			}
 			
 		} catch(Exception e) {
@@ -1352,8 +1351,7 @@ public class Ticketmaster{
 				}
 
 			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
+				System.out.println("Your input is invalid! Please try another date.");
 				continue;
 			}
 		} while(true);
