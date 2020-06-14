@@ -1450,7 +1450,15 @@ public class Ticketmaster{
 			}
 		} while(true);
 
-		String cinema_name; // MOVIE
+		try {
+			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime, C.cname FROM Shows S, Movies M, Theaters T, Cinemas C, Plays P WHERE M.mvid=S.mvid and S.mvid= '" 
+							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "' and P.tid=T.tid and S.sid=P.sid and T.cid=C.cid;";
+			esql.executeQueryAndPrintResult(query);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		String cinema_name; // Cinema
 		do{
 			System.out.println("Which cinema does the customer want to watch the show at?: ");
 			try {
@@ -1469,7 +1477,7 @@ public class Ticketmaster{
 		} while(true);
 
 		try {
-			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime, C.cname FROM Shows S, Movies M, Theaters T, Cinemas C, Plays P WHERE M.mvid=S.mvid and S.mvid= '" 
+			String query = "SELECT M.title, M.duration, S.sid, S.sdate, S.sttime FROM Shows S, Movies M, Theaters T, Cinemas C, Plays P WHERE M.mvid=S.mvid and S.mvid= '" 
 							+ mvid + "' and S.sdate <= '" + highest_date + "' and S.sdate >= '" + lowest_date + "' and C.cname = '" + cinema_name + "' and P.tid=T.tid and S.sid=P.sid and T.cid=C.cid;";
 			esql.executeQueryAndPrintResult(query);
 		} catch(Exception e) {
