@@ -1165,7 +1165,7 @@ public class Ticketmaster{
 		//find booking to change status to cancelled
 		String status = "Cancelled";
 		try {
-			String queryUpdate = "UPDATE Bookings SET status = '" + status + "' FROM Bookings B JOIN Payments P ON B.bid = P.bid WHERE P.bid = '" + pid + "';";
+			String queryUpdate = "UPDATE Bookings SET status = '" + status + "' WHERE bid = '" + pid + "';";
 			esql.executeUpdate(queryUpdate);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
