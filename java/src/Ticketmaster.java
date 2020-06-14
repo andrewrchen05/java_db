@@ -1345,7 +1345,7 @@ public class Ticketmaster{
 		}
 	}
 
-	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13
+	public static void ListMovieAndShowInfoAtCinemaInDateRange(Ticketmaster esql){//13 works!
 		String movie; // MOVIE
 		do{
 			System.out.println("Which movie does the customer want to watch?: ");
@@ -1369,7 +1369,7 @@ public class Ticketmaster{
 		try {
 			String query_mvid = "SELECT mvid\n FROM Movies\n WHERE title = '" + movie + "';";
 			movie_id_list = esql.executeQueryAndReturnResult(query_mvid);
-			esql.executeQueryAndPrintResult(query_mvid);
+			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
 				System.out.println("This movie does not exist");
