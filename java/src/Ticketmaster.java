@@ -699,25 +699,34 @@ public class Ticketmaster{
 		show(i.e. start time) and checks if the provided information is valid based 
 		on the constraints of the database schema.*/
 		//create movie
-		int mvid;
+		Integer mvid;
 		String title;
 		String rdate;
 		String country;
 		String description = "";
-		int duration = 0;
+		Integer duration = 0;
 		String lang = "";
 		String genre = "";
 
-		do{
-			System.out.println("Movie ID: ");
-			try {
-				mvid = Integer.parseInt(in.readLine());
-				break;
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
+		List<List<String>> generate_mvid = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String new_mvid = "SELECT max(bid) from bookings";
+
+			generate_mvid = esql.executeQueryAndReturnResult(new_mvid);
+			//esql.executeQueryAndPrintResult(booking_id_query);
+
+			if (new_mvid.size() == 0) {
+				System.out.println("Something went wrong."); 
+				System.exit(0);
 			}
-		} while(true);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		mvid = Integer.parseInt(generate_mvid.get(0).get(0)) + 1;
 
 		do{
 			System.out.println("Title of movie: ");
@@ -736,7 +745,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("Release Date(M/D/YYYY): ");
+			System.out.println("Release Date(YYYY-DD-MM): ");
 			try {
 				rdate = in.readLine();
 				break;
@@ -867,24 +876,33 @@ public class Ticketmaster{
 			System.out.println(e.getMessage());
 		}
 		//create show
-		int sid;
+		Integer sid;
 		String sdate;
 		String sttime;
 		String edtime;
 
-		do{
-			System.out.println("Show ID: ");
-			try {
-				sid = Integer.parseInt(in.readLine());
-				break;
-			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				continue;
+		List<List<String>> generate_sid = new ArrayList<List<String>>(); //want to find out maximum number customer can reserve
+
+		try {
+			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
+			String new_sid = "SELECT max(sid) from from shows";
+
+			generate_sid = esql.executeQueryAndReturnResult(new_sid);
+			esql.executeQueryAndPrintResult(new_sid);
+
+			if (generate_sid.size() == 0) {
+				System.out.println("Something went wrong."); 
+				System.exit(0);
 			}
-		} while(true);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		sid = Integer.parseInt(generate_sid.get(0).get(0)) + 1;
 
 		do{
-			System.out.println("Show date(M/D/YYYY): ");
+			System.out.println("Enter Show date (YYYY-MM-DD): ");
 			try {
 				sdate = in.readLine();
 				break;
@@ -895,7 +913,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("Start time in military time(HH:MM): ");
+			System.out.println("Enter Show's start time(HH:MM:SS) ");
 			try {
 				sttime = in.readLine();
 				break;
@@ -906,7 +924,7 @@ public class Ticketmaster{
 		} while(true);
 
 		do{
-			System.out.println("End time also in miltary time(HH:MM): ");
+			System.out.println("Enter Show's end time(HH:MM:SS) ");
 			try {
 				edtime = in.readLine();
 				break;
