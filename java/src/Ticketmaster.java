@@ -969,7 +969,7 @@ public class Ticketmaster{
 
 		try {
 			//String query_user = "SELECT *\n FROM Users\n WHERE email = + user_email;
-			String query_pending_bid = "UPDATE Bookings\n SET status = 'canceled' WHERE status = 'Pending'";
+			String query_pending_bid = "UPDATE Bookings\n SET status = 'Cancelled' WHERE status = 'Pending'";
 
 			esql.executeUpdate(query_pending_bid);
 			//esql.executeQueryAndPrintResult(query_pending_bid);
