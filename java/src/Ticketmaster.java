@@ -717,7 +717,7 @@ public class Ticketmaster{
 			generate_mvid = esql.executeQueryAndReturnResult(new_mvid);
 			//esql.executeQueryAndPrintResult(booking_id_query);
 
-			if (new_mvid.size() == 0) {
+			if (generate_mvid.size() == 0) {
 				System.out.println("Something went wrong."); 
 				System.exit(0);
 			}
