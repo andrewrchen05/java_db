@@ -507,7 +507,7 @@ public class Ticketmaster{
 			//esql.executeQueryAndPrintResult(query_mvid);
 
 			if (movie_id_list.size() == 0) {
-				System.out.println("This movie does not exist"); 
+				System.out.println("This movie does not exist."); 
 				System.exit(0);
 			}
 			
@@ -550,8 +550,7 @@ public class Ticketmaster{
 				}
 
 			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
+				System.out.println("Your input is invalid! Please try another date and time.");
 				continue;
 			}
 		} while(true);
@@ -616,8 +615,7 @@ public class Ticketmaster{
 				}
 
 			} catch(Exception e) {
-				System.out.println("Your input is invalid!");
-				System.exit(0); // we are not implementing sophisticated error checking
+				System.out.println("Your input is invalid! There are only " + max_possible_seats + "available!");
 				continue;
 			}
 		} while(true);
@@ -1149,7 +1147,7 @@ public class Ticketmaster{
 
 	}
 	
-	public static void RemovePayment(Ticketmaster esql){//6 works!
+	public static void RemovePayment(Ticketmaster esql){//6 works! 
 		//get pid to identify payment to be cancelled
 		int pid;
 		do{
