@@ -581,7 +581,7 @@ public class Ticketmaster{
 
 		System.out.println("Here are the theaters that are showing the movie at this time.");
 		try {// Shows the us
-			String query_theaters = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname, C.cname FROM Showseats SS, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+			String query_theaters = "SELECT SS.sid, SS.ssid, SS.price, SS.csid, CS.tid, T.tname, C.cname FROM Showseats SS, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
 											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid;";
 			if (esql.executeQueryAndPrintResult(query_theaters) == 0) {
 				System.out.println("Shows for this movie do not exist.");
@@ -617,7 +617,7 @@ public class Ticketmaster{
 		Integer max_possible_seats = 0;
 		System.out.println("The following are the seats available:");
 		try {// Shows the us
-			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS. price, SS.csid, CS.tid, T.tname, C.cname FROM Showseats SS, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
+			String query_mvid_show_times = "SELECT SS.sid, SS.ssid, SS.price, SS.csid, CS.tid, T.tname, C.cname FROM Showseats SS, Cinemaseats CS, Theaters T, Cinemas C\n WHERE SS.sid = '" 
 											+ sid + "' and SS.csid=CS.csid and CS.tid=T.tid and C.cid=T.cid and T.tid = " + theater_id + ";";
 			
 			max_possible_seats = esql.executeQueryAndPrintResult(query_mvid_show_times);
